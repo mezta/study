@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.GroupDao">
+	<!-- 获取符合条件的所有团购 -->
+	<select id="getAllGroups" resultType="com.bean.Grouptable"
+		parameterType="com.bean.Grouptable">
+		select * from Grouptable  where 1=1
+		<if test="TName!=null and TName!=''">
+			and	(courseName1 like '%${TName}%' or courseName2 like '%${TName}%')
+		</if>
+		order by gid asc
+	</select>
+	<!-- 获取符合条件的所有团购 -->
+	<select id="getAllGroupByName" resultType="com.bean.Grouptable"
+		parameterType="com.bean.Grouptable">
+		select * from Grouptable  where 1=1 and	courseName1 like '%${TName}%' or courseName2 like '%${TName}%'
+		order by gid asc
+	</select>
+	<select id="getAllGroupsList" resultType="com.bean.Grouptable"
+		parameterType="com.bean.Grouptable">
+		select * from Grouptable
+		order by gid asc
+	</select>
+	<!-- 获取分页 -->
+	<select id="getLimitGroups" resultType="com.bean.Grouptable">
+		select * from Grouptable where 1=1
+		<if test="TName != null and TName != ''">
+			and	courseName1 like '%${TName}%' or courseName2 like '%${TName}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 查询全部的类别分类 -->
+	<!-- <select id="getAllType" resultType="com.bean.Type">
+		select * from typetable order by tid asc
+	</select> -->
+	<!-- 新增团购 -->
+	<insert id="addGroup" parameterType="com.bean.Grouptable">
+		insert into Grouptable
+		(courseName1,course1Num,courseName2,course2Num,price,day)
+		values(#{courseName1},#{course1Num},
+		#{courseName2},#{course2Num},#{price},#{day})
+	</insert>
+	<!-- 通过id获取团购 -->
+	<select id="getGroupsByID" resultType="com.bean.Grouptable"
+		parameterType="com.bean.Grouptable" >
+		select * from Grouptable
+		where gid=#{gid} order by gid asc
+	</select>
+	<!-- 修改团购 -->
+	<update id="updateGroups" parameterType="com.bean.Grouptable">
+		update Grouptable set courseName1=#{courseName1},course1Num=#{course1Num},
+		courseName2=#{courseName2},course2Num=#{course2Num},price=#{price},day=#{day}
+		where gid=#{gid}
+	</update>
+	<!-- 通过id查找团购 -->
+	<!-- 删除团购 -->
+	<delete id="deleteGroupsByID" parameterType="Integer">
+		delete from Grouptable where gid=#{gid}
+	</delete>
+
+	<select id="getAllGroupsa" resultType="com.bean.Grouptable">
+		select * from Grouptable
+	</select>
+
+	<!-- <select id="getGroupByTitle" resultType="com.bean.Group">
+		select * from Grouptable where 1=1
+		<if test="title!=null">
+			and title like #{title}
+		</if>
+	</select>
+
+	<select id="information" resultType="com.bean.Group"
+		parameterType="Integer">
+		select * from Grouptable
+		where nid=#{nid} order by nid asc
+	</select> -->
+</mapper>

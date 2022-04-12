@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MsgDao">
+
+	<resultMap type="com.bean.Msg" id="msgResultMap">
+		<id property="mid" column="mid" />
+		<result property="mtitle" column="mtitle" />
+		<result property="msender" column="msender" />
+		<result property="mreceiver" column="mreceiver" />
+		<result property="mcontent" column="mcontent" />
+		<result property="msendtime" column="msendtime" />
+		<result property="readflag" column="readflag" />
+		<result property="uname" column="uname" />
+	</resultMap>
+
+	<select id="getUser" resultType="com.bean.User">
+		select
+		uid,uname,upass,upic,audit,age,telephone,email from usertable where
+		uid=#{eid};
+	</select>
+
+
+	<!-- 获取符合条件的所有 -->
+	<select id="getMsgNoReadByLimit" resultType="com.bean.Msg">
+		select * from msgtable
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 获取所有通知 -->
+	<select id="getAllMsgs" resultType="com.bean.Msg">
+		select * from msgtable
+	</select>
+	<!-- 获取所有通知 -->
+	<select id="getAmsg" resultType="com.bean.Msg">
+		select * from msgtable where uid
+		= #{uid}
+	</select>
+	<!-- 分页获取订单 -->
+	<select id="getMsgByUid" resultType="com.bean.Msg">
+		select * from msgtable where uid = #{uid}
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<select id="getAll" resultType="com.bean.Msg">
+		select * from msgtable where uid= #{uid}
+	</select>
+	<!-- 分页获取 -->
+	<select id="getLimitMsg" resultType="com.bean.Msg">
+		select * from msgtable where mreceiver = #{mreceiver}
+		<if test="lTitle != null and  lTitle !=''">
+			and mtitle like '%${lTitle}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 根据主键获取消息 -->
+	<select id="getMsgById" resultType="com.bean.Msg"
+		parameterType="Integer">
+		select * from msgtable where mid=#{mid}
+	</select>
+	<!-- 修改标识 -->
+	<update id="updateMsgById" parameterType="com.bean.Msg">
+		update msgtable set readflag=#{readflag}
+		where mid=#{mid}
+	</update>
+	<!-- 获取符合条件的所有信息 -->
+	<select id="getListMsg" resultMap="msgResultMap">
+		select * from msgtable where 1=1
+		<if test="likeTitle!= null and likeTitle!=''">
+			and mcontent like
+			'%${likeTitle}%'
+		</if>
+		order by mid asc
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 获取符合条件的所有信息 -->
+	<select id="getMsgCount" resultType="Integer">
+		select count(*) from msgtable where 1=1
+		<if test="likeTitle!= null and likeTitle!=''">
+			and mcontent like '%${likeTitle}%'
+		</if>
+		order by mid asc
+	</select>
+	<insert id="addMsg" parameterType="Integer">
+		insert into msgtable
+		(mtitle,mcontent,msendtime,mprize,uid)
+		values("${mtitle}","${mcontent}",now(),"${mprize}","${uid}")
+	</insert>
+	<insert id="addMsgl" parameterType="Integer">
+		insert into msgtable
+		(mtitle,mcontent,msendtime,mcount,uid)
+		values("${mtitle}","${mcontent}",now(),"${mcount}","${uid}")
+	</insert>
+	<delete id="delMsg" parameterType="Integer">
+		delete from msgtable where
+		mid=#{id}
+	</delete>
+	
+	
+	<!-- 获取登录用户通知 -->
+	<select id="getMsgUser" resultType="com.bean.Msg">
+		select * from msgtable
+		where mreceiver = #{uid}
+		<if test="lTitle != null and  lTitle !=''">
+			and mtitle like '%${lTitle}%'
+		</if>
+	</select>
+	<!-- 获取 -->
+	 <select id="getAmsgNum" resultType="com.bean.Msg">
+		select * from msgtable where mtitle = '${mimtle}'
+	</select> 
+	
+<!-- <sql id="Base_Column_List" >
+    id, order_num, order_time, users, recv_name, recv_address, recv_phone, recv_remark, 
+    totale, status
+  </sql>
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select> -->
+</mapper>

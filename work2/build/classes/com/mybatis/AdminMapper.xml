@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.AdminDao">
+
+<select id="login" resultType="com.bean.Admin" 
+parameterType="com.bean.Admin">
+    select * from admintable where aname=#{aname} and apass=#{apass}
+</select>
+<!-- 通过email修改密码 -->
+<update id="updPwd" parameterType="com.bean.Admin">
+	update admintable set apass=#{apass} where email=#{email}
+</update> 
+<!-- 获取信息 -->
+<select id="getAdmin" resultType="com.bean.Admin" 
+parameterType="Integer">
+    select * from admintable where aid=#{aid} 
+</select>
+<!-- 修改个人信息 -->
+<update id="setAdmin" parameterType="com.bean.Admin">
+	update admintable set apass=#{apass},aname=#{aname},email=#{email},apic=#{apic},nickName=#{nickName} where aid=#{aid}
+</update> 
+
+</mapper>

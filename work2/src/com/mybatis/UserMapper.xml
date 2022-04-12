@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.UserDao">
+
+    <!--登录 -->
+	<select id="login" parameterType="com.bean.User"
+		resultType="com.bean.User">
+		select * from usertable where uname=#{uname} and
+		upass=#{upass}
+	</select>
+	<!-- 查询是否有同名用户 -->
+	<select id="selectUser" resultType="Integer">
+		select count(*) from usertable where uname = #{uname} 
+	</select>
+	
+	<select id="AllNews" resultType="com.bean.News">
+		select * from newstable
+	</select>
+	
+	<select id="getNewsByTitle" resultType="com.bean.News">
+		select * from newstable where 1=1
+		<if test="title!=null">
+			and title like #{title}
+		</if>
+	</select>
+
+	<!-- 根据Uid删除用户 -->
+	<delete id="deleteUserByUid" parameterType="com.bean.User">
+		delete from usertable
+		where uid=#{uid}
+	</delete>
+	<select id="information" resultType="com.bean.News"
+		parameterType="Integer">
+		select * from newstable
+		where nid=#{nid} order by nid
+		desc
+	</select>
+	<!-- 通过uid修改用户密码 -->
+	<update id="updPwd" parameterType="com.bean.User">
+		update usertable set
+		upass=#{upass} where uid=#{uid} and uname=#{uname}
+	</update>
+	<!-- 新增用户 -->
+	<insert id="addUser" parameterType="com.bean.User">
+		insert into usertable
+		(uname,nickName,upass,telephone,email,age) value
+		(#{uname},#{nickName},#{upass},#{telephone},#{email},#{age})
+	</insert>
+	
+	<!-- 通过uid修改用户信息 -->
+	<update id="updUser" parameterType="com.bean.User">
+		update usertable set uname=#{uname}, telephone=#{telephone}, email=#{email},
+		nickName=#{nickName}
+		,upic = #{upic}, age= #{age}
+		where uid=#{uid}
+	</update>
+
+	<!-- 获取所有信息 -->
+	<select id="getAll" resultType="com.bean.User">
+		select * from usertable
+	</select>
+	<!-- 查询分页信息 -->
+	<select id="getLimit" resultType="com.bean.User">
+		select * from usertable
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 查询分页信息 -->
+	<select id="getLimitUser" resultType="com.bean.User">
+		select * from usertable
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<update id="updateCheck" parameterType="com.bean.User">
+		update usertable set
+		audit= 1 where uid=#{uid}
+	</update>
+	
+	<update id="updUserLetter" parameterType="com.bean.User">
+		update usertable set
+		letter= letter + #{letter} where uid=#{uid}
+	</update>
+	<update id="updUserLetter1" parameterType="com.bean.User">
+		update usertable set
+		letter= letter - #{letter} where uid=#{uid}
+	</update>
+	<delete id="emptyCart" parameterType="Integer">
+		delete from carttable where
+		uid=#{uid}
+	</delete>
+	<select id="getEmpNoAudit" resultType="com.bean.User">
+		select * from usertable where audit=0
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<select id="getAllNoClockIn" resultType="com.bean.User"
+		parameterType="String">
+		select e.*,c.* from usertable e left join (select * from clockintable
+		c
+		where cdate >= #{date} <![CDATA[ and cdate <= #{date} ]]>)
+		c on e.uid=c.eid where e.audit=1 and (c.clateFlag is null or
+		c.clateFlag=1
+		or c.makeupFlag=1)
+	</select>
+	<!-- 获取信息 -->
+	<select id="getUser" resultType="com.bean.User" 
+	parameterType="Integer">
+	    select * from usertable where uid=#{uid} 
+	</select>
+	
+	<!-- 修改个人信息 -->
+	<update id="setUser" parameterType="com.bean.User">
+		update usertable set uname=#{uname},upass=#{upass},telephone=#{telephone},upic=#{upic},nickName=#{nickName},email=#{email},age= #{age} where uid=#{uid}
+	</update>
+</mapper>
+
+

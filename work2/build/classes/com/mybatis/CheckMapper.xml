@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CheckDao">
+
+	<!-- 获取用户列表 -->
+	<select id="selectUser" resultType="com.bean.User">
+		select * from usertable where 1=1
+		<if test="Ulname != null and Ulname != ''">
+			and uname like '%${Ulname}%'
+		</if>
+		order by uid asc
+	</select>
+
+	<!-- 获取用户信息 -->
+	<select id="getAllUser" resultType="com.bean.User">
+		select * from usertable order
+		by uid asc
+	</select>
+
+	<!-- 查询分页信息 -->
+	<select id="getLimitCheck" resultType="com.bean.User">
+		select * from usertable where 1=1
+		<if test="Ulname != null and Ulname != ''">
+			and uname like '%${Ulname}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 添加用户 -->
+	<insert id="addUser" parameterType="com.bean.User">
+		insert into
+		usertable(uname,upass,upic,audit,age,telephone,nickName,email)
+		values(#{uname},#{upass},#{upic},#{audit},#{age},#{telephone},#{nickName},#{email})
+	</insert>
+	<!-- 修改用户 -->
+	<update id="updUser" parameterType="com.bean.User">
+		update usertable set uname=#{uname},upass=#{upass},
+		<if test="upic!=null">
+			upic=#{upic},
+		</if>
+		audit=#{audit},age=#{age},telephone=#{telephone},nickName=#{nickName},email=#{email}
+		where uid=#{uid}
+	</update>
+	<!-- 通过id获取用户信息 -->
+	<select id="getCheckByID" resultType="com.bean.User">
+		select * from usertable
+		where uid=#{uid} order by uid desc
+	</select>
+
+	<!-- 根据Uid删除用户 -->
+	<delete id="deleteCheckById" parameterType="com.bean.User">
+		delete from usertable
+		where uid=#{uid}
+	</delete>
+
+</mapper>
+
+

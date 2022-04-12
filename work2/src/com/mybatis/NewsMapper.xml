@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.NewsDao">
+	<!-- 获取符合条件的所有商品 -->
+	<select id="getAllNews" resultType="com.bean.News"
+		parameterType="com.bean.News">
+		select * from newstable  where 1=1
+		<if test="lTitle!=null and lTitle!=''">
+			and title like '%${lTitle}%'
+		</if>
+		order by nid asc
+	</select>
+	
+	<select id="getAllNewsList" resultType="com.bean.News"
+		parameterType="com.bean.News">
+		select * from newstable  where 1=1
+		order by nid asc
+	</select>
+	<!-- 获取分页 -->
+	<select id="getLimitNews" resultType="com.bean.News">
+		select * from newstable where 1=1
+		<if test="lTitle != null and lTitle != ''">
+			and title like '%${lTitle}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 查询全部的类别分类 -->
+	<select id="getAllType" resultType="com.bean.Type">
+		select * from typetable order by tid asc
+	</select>
+	<!-- 新增商品 -->
+	<insert id="addNews" parameterType="com.bean.News">
+		insert into newstable
+		(title,content,startdate)
+		values(#{title},#{content},#{startdate})
+	</insert>
+	<!-- 通过id获取商品 -->
+	<select id="getNewsByID" resultType="com.bean.News"
+		parameterType="Integer">
+		select * from newstable
+		where nid=#{nid} order by nid asc
+	</select>
+	<!-- 修改商品 -->
+	<update id="updateNews" parameterType="com.bean.News">
+		update newstable set title=#{title},content=#{content},startdate=#{startdate}
+		where nid=#{nid}
+	</update>
+	<!-- 删除商品 -->
+	<delete id="deleteNewsByID" parameterType="Integer">
+		delete from newstable where nid=#{nid}
+	</delete>
+
+	<select id="AllNews" resultType="com.bean.News">
+		select * from newstable
+	</select>
+
+	<select id="getNewsByTitle" resultType="com.bean.News">
+		select * from newstable where 1=1
+		<if test="title!=null">
+			and title like #{title}
+		</if>
+	</select>
+
+</mapper>

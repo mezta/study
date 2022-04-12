@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration>
+<settings>
+<setting name="logImpl" value="LOG4J"/>
+</settings>
+  <mappers >
+     <mapper resource="com/mybatis/AdminMapper.xml"/>
+     <mapper resource="com/mybatis/ClockInMapper.xml"/>
+     <mapper resource="com/mybatis/ConfigMapper.xml"/>
+     <mapper resource="com/mybatis/MsgMapper.xml"/>
+     <mapper resource="com/mybatis/NewsMapper.xml"/>
+     <mapper resource="com/mybatis/TypeMapper.xml"/>
+     <mapper resource="com/mybatis/UserMapper.xml"/>
+     <mapper resource="com/mybatis/CheckMapper.xml"/>
+     <mapper resource="com/mybatis/MessageMapper.xml"/>
+     <mapper resource="com/mybatis/CoachMapper.xml"/>
+     <mapper resource="com/mybatis/CourseMapper.xml"/>
+     <mapper resource="com/mybatis/GroupMapper.xml"/>
+     <mapper resource="com/mybatis/ShopMapper.xml"/>
+ </mappers>
+</configuration>

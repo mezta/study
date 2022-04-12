@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.MessageDao">
+	<!-- 获取商品信息 -->
+	
+	<select id="getMainNews" resultType="com.bean.News">
+		select * from newstable
+		order by nid asc
+	</select>
+	
+	<select id="getAnews" resultType="com.bean.News">
+		select * from newstable
+		order by nid asc
+	</select>
+	
+	<select id="getNewGoods" resultType="com.bean.News">
+		select * from newstable 
+		order by nid asc
+	</select>
+	
+	<select id="getHotNews" resultType="com.bean.News">
+		select * from newstable
+		order by nid asc
+	</select>
+</mapper>
+
+
+
+		<!-- 
+	
+	
+	<select id="getCnews" resultType="com.bean.News">
+		select * from newstable where tid = 5
+		order by nid asc
+	</select>
+	
+	<select id="getDnews" resultType="com.bean.News">
+		select * from newstable where tid = 4
+		order by nid asc
+	</select>
+	
+	<select id="getEnews" resultType="com.bean.News">
+		select * from newstable where tid = 3
+		order by nid asc
+	</select>
+	
+	<select id="getFnews" resultType="com.bean.News">
+		select * from newstable where tid = 2
+		order by nid asc
+	</select>
+	
+	<select id="getGnews" resultType="com.bean.News">
+		select * from newstable where tid = 1
+		order by nid asc
+	</select>
+ -->

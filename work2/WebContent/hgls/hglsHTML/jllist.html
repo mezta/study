@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+ 
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 基础表格</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="css/hgls/css/admin/amazeui.min.css">
+	<link rel="stylesheet" href="css/hgls/css/admin/admin.css">
+
+</head>
+
+<body class="gray-bg">
+    <div class="admin-content-body">
+		<div class="am-cf am-padding am-padding-bottom-0">
+			<div class="am-fl am-cf">
+				<strong class="am-text-primary am-text-lg">教练管理</strong><small></small>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="am-g">
+			<div class="am-u-sm-12 am-u-md-6">
+				<div class="am-btn-toolbar">
+					<div class="am-btn-group am-btn-group-xs">
+						<span><a href="../coach/getAddCoach"><button type="button"
+								class="am-btn am-btn-default">
+								<span class="am-icon-plus">新增
+							</button></a>
+					</div>
+				</div>
+			</div>
+			<div class="am-u-sm-12 am-u-md-3"></div>
+			<div class="am-u-sm-12 am-u-md-3">
+				<div class="am-input-group am-input-group-sm">
+					<input type="text" class="am-form-field" id="searchData"
+						value="${IName}"> <span class="am-input-group-btn">
+						<button class="am-btn am-btn-default" type="button" id="search">查询教练</button>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="am-g">
+			<div class="am-u-sm-12">
+				<form class="am-form">
+					<table class="am-table am-table-striped am-table-hover table-main">
+						<thead>
+							<tr>
+								<th class="table-check" style="width: 5%; text-align: center"><input
+									type="checkbox"></th>
+								<th class="table-id" style="width: 5%; text-align: center">ID</th>
+								<th class="table-title" style="width: 10%; text-align: center">教练名称</th>
+								<th class="table-type" style="width: 10%; text-align: center">教练特点</th>
+								<th class="table-author am-hide-sm-only"
+									style="width: 15%; text-align: center">教练图片</th>
+								<th class="table-set" style="width: 20%; text-align: center">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${coachList}" var="val" varStatus="vs">
+								<tr>
+									<td style="width: 5%; text-align: center"><input
+										type="checkbox"></td>
+									<td style="width: 5%; text-align: center">${val.id}</td>
+									<td style="width: 10%; text-align: center">${val.name}</td>
+									<td class="am-hide-sm-only"
+										style="width: 10%; text-align: center">${val.feature}</td>
+									<td class="am-hide-sm-only"
+										style="width: 15%; text-align: center"><img style="width:120px;height:90px;" src="${basePath}${val.pic}"/></td>
+									<td style="width: 20%; text-align: center;">
+										<div class="am-btn-toolbar"
+											style="text-align: center; margin-left: 60px">
+											<div class="am-btn-group am-btn-group-xs"
+												style="text-align: center">
+												<button
+													class="am-btn am-btn-default am-btn-xs am-text-secondary">
+													<span class="am-icon-pencil-square-o"
+														style="text-align: center"></span> <a
+														href="../coach/getCoachByID?id=${val.id}&&currPage=1">修改教练</a>
+												</button>
+												<button
+													class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+													<span class="am-icon-trash-o" style="text-align: center"></span>
+													<a href="../coach/deleteCoachByID?id=${val.id}">删除教练</a>
+												</button>
+											</div>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<div class="am-cf">
+						共${count}条记录
+						<div class="am-fr">
+							<ul class="am-pagination">
+								<li><a href="javascript:void(0)" onclick="goNewPage(1)">«</a>
+								</li>
+								<c:forEach var="i" begin="1" end="${countPage}" step="1">
+									<li id="page_${i}"><a href="javascript:void(0)"
+										onclick="goNewPage(${i})">${i}</a></li>
+								</c:forEach>
+								<li><a href="javascript:void(0)"
+									onclick="goNewPage(${countPage})">»</a></li>
+							</ul>
+						</div>
+					</div>
+					<hr>
+					<!-- 信息提示 -->
+					<input value="${mess}" type="hidden" id="message">
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="css/hgls/js/admin/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+				var currentPage=${currPage};
+				$("#page_"+currentPage).addClass("am-active");
+				$("#search").click(function(){
+					var data=$(".am-form-field").val();
+					var url="../coach/coachIndex?currPage=1&IName="+data;
+					window.location.href=url;
+				});
+				function goNewPage(pageNum){
+					var data='${IName}';
+					window.location.href="../coach/coachIndex?currPage="+pageNum+"&IName="+data;
+				}
+				var message=document.getElementById("message").value;
+				if(message!=null&&message!=""){
+					alert(message);
+				}
+			</script>
+   
+    <!-- 全局js -->
+    <script src="js/jquery.min.js?v=2.1.4"></script>
+    <script src="js/bootstrap.min.js?v=3.3.7"></script>
+
+    <!-- Peity -->
+    <script src="js/plugins/peity/jquery.peity.min.js"></script>
+
+    <!-- 自定义js -->
+    <script src="js/content.js?v=1.0.0"></script>
+
+
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- Peity -->
+    <script src="js/demo/peity-demo.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <!--统计代码，可删除-->
+
+</body>
+
+</html>

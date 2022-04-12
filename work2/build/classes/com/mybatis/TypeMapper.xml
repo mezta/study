@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.TypeDao">
+	<!-- 获取符合条件的所有健身知识 -->
+	<select id="getAllType" resultType="com.bean.Type">
+		select * from typetable t where 1=1
+		<if test="lTname!=null and lTname!=''">
+			and t.tname like '%${lTname}%'
+		</if>
+	</select>
+	
+	<select id="getAllTypes" resultType="com.bean.Type">
+		select * from typetable
+	</select>
+	<!-- 获取分页 -->
+	<select id="getLimitType" resultType="com.bean.Type">
+		select * from typetable t where 1 = 1
+		<if test="lTname != null and lTname != ''">
+			and t.tname like '%${lTname}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 添加健身知识 -->
+	<insert id="addType" parameterType="com.bean.Type">
+		insert into typetable
+		values(null,#{tname},#{tcontent},#{startdate},#{enddate})
+	</insert>
+
+	<select id="selectType" resultType="com.bean.Type">
+		select * from typetable
+	</select>
+
+	<select id="selectTypeByID" resultType="com.bean.Type"
+		parameterType="Integer">
+		select * from typetable where tid=#{tid}
+	</select>
+	<select id="userGetTypeById" resultType="com.bean.Type"
+		parameterType="Integer">
+		select * from typetable where tid=#{tid}
+	</select>
+	<update id="updateType" parameterType="com.bean.Type">
+		update typetable set
+		tname=#{tname},tcontent=#{tcontent},startdate=#{startdate},enddate=#{enddate} where tid=#{tid}
+	</update>
+	<!-- 根据Id删除健身知识 -->
+	<delete id="deleteTypeById" parameterType="com.bean.Type">
+		delete from typetable
+		where tid=#{tid}
+	</delete>
+</mapper>

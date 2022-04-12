@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ClockInDao">
+    <resultMap type="com.bean.ClockIn" id="clockInResultMap">
+        <id property="cid" column="cid"/>
+        <result property="eid" column="eid"/>
+        <result property="cstarttime" column="cstarttime"/>
+        <result property="cdate" column="cdate"/>
+        <result property="cendtime" column="cendtime"/>
+        <result property="clateFlag" column="clateFlag"/>
+        <result property="makeupFlag" column="makeupFlag"/>
+        <association property="user" javaType="com.bean.User"
+                     select="getUser" column="uid"/>
+        <!--column 指的是usertable中的主键字段-->
+    </resultMap>
+    <select id="getUser" resultType="com.bean.User">
+		select uid,uname,upass,upic,audit,age,telephone,email from usertable where uid=#{eid};
+	</select>
+    <!-- 获取符合条件的数据 -->
+    <select id="getClockInListByEid" resultType="com.bean.ClockIn"
+            parameterType="Integer">
+        select * from clockintable where eid=#{eid} order by cid asc
+        <if test="pageNo >=0 and pageSize >=0">
+            limit #{pageNo},#{pageSize}
+        </if>
+    </select>
+    <!-- 获取符合条件的数据 -->
+    <select id="getClockByUid" resultType="com.bean.ClockIn">
+        select * from clockintable where eid=#{uid} order by cid asc
+    </select>
+    <!-- 获取符合条件的数据 -->
+    <select id="getEmpClockInList" resultMap="clockInResultMap">
+        select e.*,c.* from usertable e left join (select * from clockintable c where cdate >= #{startDate}
+        <![CDATA[ and cdate <= #{endDate} ]]>) c on e.uid=c.eid where e.audit=1
+        <if test="eid>0 and eid!=null">
+            and c.eid=#{eid}
+        </if>
+        order by clateFlag asc,makeupFlag asc,cid desc
+        <if test="pageNo >=0 and pageSize >=0">
+            limit #{pageNo},#{pageSize}
+        </if>
+    </select>
+    <!-- 获取符合条件的数据 -->
+    <select id="getEmpClockCount" resultType="com.bean.ClockIn">
+        select e.*,c.* from usertable e left join (select * from clockintable c where cdate >= #{startDate}
+        <![CDATA[ and cdate <= #{endDate} ]]>) c on e.uid=c.eid where e.audit=1
+        <if test="eid>0 and eid!=null">
+            and c.eid=#{eid}
+        </if>
+    </select>
+    
+    <insert id="setSignature" parameterType="com.bean.ClockIn" keyProperty="cid" useGeneratedKeys="true">
+		insert into clockintable (eid,cstarttime,cdate,clateFlag,makeupFlag) values (#{eid},#{cstarttime},#{cdate},#{clateFlag},#{makeupFlag})
+	</insert>
+    
+    <select id="getClockInByEid" resultType="com.bean.ClockIn">
+    select * from clockintable where eid=#{eid}  and cdate =#{cdate}
+</select>
+</mapper>

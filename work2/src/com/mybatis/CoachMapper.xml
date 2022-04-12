@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CoachDao">
+	<!-- 获取符合条件的所有教练信息 -->
+	<select id="getAllCoach" resultType="com.bean.Coach"
+		parameterType="com.bean.Coach">
+		select * from coach  where 1=1
+		<if test="IName!=null and IName!=''">
+			and name like '%${IName}%'
+		</if>
+		order by id asc
+	</select>
+	<select id="getAllCoachs" resultType="com.bean.Coach"
+		parameterType="com.bean.Coach">
+		select * from coach  where 1=1
+		order by id asc
+	</select>
+	<!-- 获取分页 -->
+	<select id="getLimitCoach" resultType="com.bean.Coach">
+		select * from coach where 1=1
+		<if test="IName != null and IName != ''">
+			and name like '%${IName}%'
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 新增教练 -->
+	<insert id="addCoach" parameterType="com.bean.Coach">
+		insert into coach
+		(name,feature,pic,descripe)
+		values(#{name},#{feature},
+		#{pic},#{descripe})
+	</insert>
+	<!-- 通过id获取教练 -->
+	<select id="getCoachByID" resultType="com.bean.Coach"
+		parameterType="Integer">
+		select * from coach
+		where id=#{id} order by id asc
+	</select>
+	<!-- 修改教练 -->
+	<update id="updateCoach" parameterType="com.bean.Coach">
+		update coach set name=#{name},feature=#{feature},
+		<if test="pic!=null">
+			pic=#{pic},
+		</if>
+		descripe=#{descripe}
+		where id=#{id}
+	</update>
+	<!-- 删除教练 -->
+	<delete id="deleteCoachByID" parameterType="Integer">
+		delete from coach where id=#{id}
+	</delete>
+
+	<select id="AllNews" resultType="com.bean.Coach">
+		select * from newstable
+	</select>
+
+	<select id="getNewsByTitle" resultType="com.bean.Coach">
+		select * from newstable where 1=1
+		<if test="title!=null">
+			and title like #{title}
+		</if>
+	</select>
+
+	<select id="information" resultType="com.bean.Coach"
+		parameterType="Integer">
+		select * from newstable
+		where nid=#{nid} order by nid asc
+	</select>
+</mapper>

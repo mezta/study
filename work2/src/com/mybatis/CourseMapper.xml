@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CourseDao">
+	<!-- 获取符合条件的所有项目 -->
+	<select id="getAllCourse" resultType="com.pojo.courses">
+		select c.*,t.name from course c,coach t  where 1=1
+		<if test="CName!=null and CName!=''">
+			and (courseName like '%${CName}%' or classify like '%${CName}%')
+		</if>
+		and c.coachId = t.id
+		order by cid asc
+	</select>
+	<!-- 获取分页 -->
+	<select id="getLimitCourse" resultType="com.pojo.courses">
+		select c.*,t.name from course c,coach t  where 1=1 and c.coachId = t.id
+		<if test="CName!=null and CName!=''">
+			and (courseName like '%${CName}%' or classify like '%${CName}%') <!-- courseName like '%${CName}%' ' -->
+		</if>
+		<if test="pageNo >=0 and pageSize >=0">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	<!-- 新增项目 -->
+	<insert id="addCourse" parameterType="com.bean.Course">
+		insert into course
+		(courseName,classify,time,coachId,num,content)
+		values(#{courseName},#{classify},#{time},
+		#{coachId},#{num},#{content})
+	</insert>
+	<!-- 通过id获取项目 -->
+	<select id="getCourseByID" resultType="com.bean.Course"
+		parameterType="Integer">
+		select * from course
+		where cid=#{cid} order by cid asc
+	</select>
+	<!-- 通过id获取教练 -->
+	<select id="getCourseID" resultType="com.bean.Course"
+		parameterType="Integer">
+		select * from course
+		where coachId=#{coachid} order by coachId asc
+	</select>
+	<!-- 修改项目 -->
+	<update id="updateCourse" parameterType="com.bean.Course">
+		update course set courseName=#{courseName},classify=#{classify},time=#{time},
+		coachId=#{coachId},num=#{num},content=#{content}
+		where cid=#{cid}
+	</update>
+	<!-- 删除项目 -->
+	<delete id="deleteCourseByID" parameterType="Integer">
+		delete from course where cid=#{cid}
+	</delete>
+
+	<select id="getAllCoach" resultType="com.bean.Coach">
+		select * from coach
+	</select>
+	<select id="getAllCourses" resultType="com.bean.Course">
+		select * from Course
+	</select>
+	<!-- <select id="getNewsByTitle" resultType="com.bean.Course">
+		select * from newstable where 1=1
+		<if test="title!=null">
+			and title like #{title}
+		</if>
+	</select> -->
+</mapper>
