@@ -32,6 +32,14 @@ public class UserController {
 		return userServices.getMain(currPage, model, session, uid);
 	}
 
+	@RequestMapping("getMainuid")
+	public String getMainuid(Integer currPage, Model model, HttpSession session, String uid) {
+		if (currPage == null) {
+			currPage = 1;
+		}
+		return userServices.getMainuid(currPage, model, session, uid);
+	}
+
 	// 登录
 	@RequestMapping("login")
 	public String login(User user, Model model, HttpSession session) {

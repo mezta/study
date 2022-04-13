@@ -10,11 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.bean.Grouptable;
 import com.bean.Msg;
 import com.bean.User;
 import com.dao.GroupDao;
 import com.dao.MsgDao;
 import com.dao.UserDao;
+import com.util.DateUtil;
 import com.util.LimitPageUtil;
 
 @Service("empMsgServices")
@@ -64,8 +66,10 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 		User u = (User) session.getAttribute("userMain");
 		if (u != null) {
 			if ("1".equals(msg.getReadflag())) {
-
 				userDao.updUserLetter(msg.getMprize(), u.getUid());
+				Grouptable grouptable = groupDao.getGroupsByID(msg.getMcontent());
+				DateUtil dateUtil = new DateUtil();
+				msg.setMsender(dateUtil.findDate(grouptable.getDay()));
 				msg.setMtitle(new Date().getTime() + "");
 				msgDao.addMsg(msg);
 				return "user/buy";

@@ -51,7 +51,8 @@
 					                  	<a style='color:white'>欢迎 ${userMain.nickName}</a>
 					                  </li>
 					                  <li>
-					                  	<a href="${basePath}user/getUserInfomation?uid=${userMain.uid}" >个人中心</a>
+					                  	<%-- <a href="${basePath}user/getUserInfomation?uid=${userMain.uid}" >个人中心</a> --%>
+					                  	<a href="${basePath}user/getMainuid?uid=${userMain.uid}" >个人中心</a>
 					                  </li>
 					                  <li>
 					                  	<a href="${basePath}user/quit">退出</a>

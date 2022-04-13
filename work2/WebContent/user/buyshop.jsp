@@ -97,10 +97,10 @@
 					<dd>
 						<input id="" type="text" style="text-align:center " disabled="disabled"name="mprize" value="${msg.mprize} "/>
 					</dd>
-					<dt>商品描述</dt>
+					<!-- <dt>商品描述</dt>
 					<dd>
 						<input id="WIDbody" name="WIDbody" value=""/>
-					</dd>
+					</dd> -->
 					&nbsp;
 					<p class="more">
 					<span class="new-btn-login-sp">

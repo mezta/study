@@ -4,9 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.bean.Admin;
 import com.bean.User;
 
 public interface UserServices {
@@ -18,19 +16,21 @@ public interface UserServices {
 
 	// 登录用户后台
 	public String userMain(HttpSession session);
-	
-	public String getMain(int currPage,Model model, HttpSession session,String uid);
+
+	public String getMain(int currPage, Model model, HttpSession session, String uid);
 
 	public String getCast(Model model, HttpSession session, String uid);
-	
-	//修改个人信息跳转
-    public String getUserInfomation(Model model,int uid);
-    
-  //修改密码操作
- //   public String setUserInfoMation(User user,Model model,HttpServletRequest req,MultipartFile mypic,HttpSession session);
-  //修改密码操作xin
 
-    public String setUserInfoMation(User user,Model model,HttpServletRequest req,HttpSession session);
+	// 修改个人信息跳转
+	public String getUserInfomation(Model model, int uid);
 
+	// 修改密码操作
+	// public String setUserInfoMation(User user,Model model,HttpServletRequest
+	// req,MultipartFile mypic,HttpSession session);
+	// 修改密码操作xin
+
+	public String setUserInfoMation(User user, Model model, HttpServletRequest req, HttpSession session);
+
+	public String getMainuid(int currPage, Model model, HttpSession session, String uid);
 
 }

@@ -17,6 +17,8 @@ public interface MsgDao {
 	public List<Msg> getListMsg(@Param("rid") Integer rid, @Param("pageNo") Integer pageNo,
 			@Param("pageSize") Integer pageSize, @Param("likeTitle") String likeTitle);
 
+	public Msg updateMsgByIddaty(@Param("mid") Integer mid, @Param("mreceiver") String mreceiver);
+
 	public int addMsg(Msg msg);
 
 	public int addMsgl(Msg msg);

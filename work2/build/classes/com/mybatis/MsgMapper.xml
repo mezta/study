@@ -44,8 +44,19 @@
 			limit #{pageNo},#{pageSize}
 		</if>
 	</select>
+		<select id="updateMsgByIddaty" resultType="com.bean.Msg">
+		update msgtable  set mreceiver = #{mreceiver} where mid = #{mid};
+	</select>
 	<select id="getAll" resultType="com.bean.Msg">
-		select * from msgtable where uid= #{uid}
+SELECT
+	*,
+	grouptable.gid
+FROM
+	msgtable,
+	grouptable
+WHERE
+	msgtable.mcontent = grouptable.gid
+AND msgtable.uid = #{uid}
 	</select>
 	<!-- 分页获取 -->
 	<select id="getLimitMsg" resultType="com.bean.Msg">
@@ -89,8 +100,8 @@
 	</select>
 	<insert id="addMsg" parameterType="Integer">
 		insert into msgtable
-		(mtitle,mcontent,msendtime,mprize,uid)
-		values("${mtitle}","${mcontent}",now(),"${mprize}","${uid}")
+		(mtitle,mcontent,msendtime,msender,mprize,uid)
+		values("${mtitle}","${mcontent}",now(),"${msender}","${mprize}","${uid}")
 	</insert>
 	<insert id="addMsgl" parameterType="Integer">
 		insert into msgtable

@@ -21,6 +21,7 @@ import com.dao.NewsDao;
 import com.dao.TypeDao;
 import com.dao.UserDao;
 import com.util.CardValidator;
+import com.util.DateUtil;
 
 @Service("userServices")
 public class UserServicesImpl implements UserServices {
@@ -53,6 +54,29 @@ public class UserServicesImpl implements UserServices {
 
 		// return null;
 		return "user/orderList";
+	}
+
+	@Override
+	public String getMainuid(int currPage, Model model, HttpSession session, String uid) {
+		DateUtil dateUtil = new DateUtil();
+		List<Msg> allMsg = msgDao.getAll(uid);
+		Msg[] a = new Msg[allMsg.size()];
+		int i = 0;
+		for (Msg d : allMsg) {
+			a[i] = d;
+			i++;
+		}
+		for (int j = 0; j < a.length; j++) {
+			String end = dateUtil.Dates(a[j].getMsender());
+			System.err.println(end);
+			msgDao.updateMsgByIddaty(a[j].getMid(), end);
+		}
+		model.addAttribute("msgs", allMsg);
+		int id = Integer.parseInt(uid);
+		User user = userDao.getUser(id);
+		model.addAttribute("userfomation", user);
+		model.addAttribute("uid", uid);
+		return "user/personal";
 	}
 
 	@Override
@@ -128,7 +152,7 @@ public class UserServicesImpl implements UserServices {
 	@Override
 	public String getUserInfomation(Model model, int uid) {
 		User user = userDao.getUser(uid);
-		model.addAttribute("userfomation", user);
+		model.addAttribute("userMain", user);
 		return "user/updateUserInfo";
 	}
 

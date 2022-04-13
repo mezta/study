@@ -28,28 +28,33 @@
 		<table class="table table-striped table-hover">
 			<tr>
 								<th class="table-id" style="width: 10%; text-align: center">ID</th>
-								<th class="table-author am-hide-sm-only" style="width: 10%; text-align: center">商户订单号</th>
-								<th class="table-author am-hide-sm-only" style="width: 10%; text-align: center">下单时间</th>
-								<th class=" table-id" style="width: 10%; text-align: center">订单金额</th>
+								<th class="table-id" style="width: 10%; text-align: center">商户订单号</th>
+								<th class="table-id" style="width: 10%; text-align: center">下单时间</th>
+								
+								<th class=" table-id" style="width: 10%; text-align: center">付款金额</th>
 								<th class=" table-id" style="width: 10%; text-align: center">订单积分</th>
-								<th class="table-author am-hide-sm-only"
-									style="width: 10%; text-align: center">团购套餐id</th>
+								<th class="table-id"
+									style="width: 10%; text-align: center">商品编码</th>
+									<!-- <th class="" style="width: 10%; text-align: center">会员到期时间</th> -->
 								<th class="table-set" style="width: 10%; text-align: center">操作</th>
 							</tr>
 							<c:forEach items="${msgs}" var="val" varStatus="vs">
 									<tr>
 										<td style="width: 10%; text-align: center">${vs.index+1}</td>
-										<td style="width: 10%; text-align: center">${val.mtitle}
+										<td style="width: 15%; text-align: center">${val.mtitle}
 										</td>
-										<td class="am-hide-sm-only" style="width: 20%; text-align: center">${val.msendtime}
+										<td class="" style="width: 15%; text-align: center">${val.msendtime}
 										</td>
-										<td  style="width: 10%; text-align: center">${val.mprize}
+								
+										<td  style="width: 12%; text-align: center">${val.mprize}
 										</td>
 										<td class=""
-											style="width: 20%; text-align: center">${val.mcount}</td>
-										<td class="am-hide-sm-only"
-											style="width: 20%; text-align: center">${val.mcontent}</td>
-										
+											style="width: 10%; text-align: center">${val.mcount}</td>
+										<td class=""
+											style="width: 10%; text-align: center">${val.mcontent}</td>
+											<%-- <td class=""
+											style="width: 12%; text-align: center">${val.msender}</td>
+							 --%>
 										<td style="width: 20%; text-align: center; ">
 											<div class="am-btn-toolbar"
 												style="text-align: center;">
