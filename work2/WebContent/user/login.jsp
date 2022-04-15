@@ -86,7 +86,7 @@
 		</form>
 	</div>
 <div class="footer">
-		<h2>&copy; 2022 Fitness Login Form 海格利斯游泳馆
+		<h2>&copy; 2022 Fitness Login Form 海格利斯游泳馆会员管理系统
 		</h2>
 	</div>
     <script src="${basePath}js/jquery-3.2.1.slim.min.js"></script>

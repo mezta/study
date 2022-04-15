@@ -95,7 +95,7 @@
                     <p>年龄：${userMain.age} </p> 
                     <p>电话：${userMain.telephone}</p>
                     <p>email：${userMain.email}</p>
-                    <p>积分：${userMain.letter}</p>
+                    <p>积分：${userfomation.letter}</p>
              
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -183,14 +183,14 @@ layer.open({
     if (message != null && message != "") {
         alert(message);
     }
-   /*   var arry=new Array();
+    /* var arry=new Array();
     
     <c:forEach items="${daqi}" var="val">
     createAlert(${val.mcontent},  ${val.mreceiver})
      layer.alert('${val.mcontent},  ${val.mreceiver}', {icon: 6}); */
    		alert("您的套餐${val.mcontent} 还有 ${val.mreceiver} 天就到期啦！请即使续费哦！")
     </c:forEach> 
-    
+     */
   
    /*
    function createAlert(mcontent, mreceiver) {
@@ -221,6 +221,6 @@ layer.open({
    <c:forEach items="${daqi}" var="val">
     createAlert(${val.mcontent},  ${val.mreceiver})
     </c:forEach> 
-   */  */
+   */  
  </script>  
 </html>

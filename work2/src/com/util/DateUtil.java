@@ -91,9 +91,9 @@ public class DateUtil {
 			System.err.println("到期时间" + d2);
 			int surplus = (int) ((d2.getTime() - d1.getTime()) / (24 * 60 * 60 * 1000));
 			int surplu = (int) (((d2.getTime() - d1.getTime()) / (60 * 60 * 1000)) % 24);
-			System.err.println("相减后的时间" + surplus);
+			System.err.println("相减后的天数" + surplus + "相减后的时间小时" + surplu);
 
-			if (surplu > 0) {
+			if (surplus > 0 || surplu > 0) {
 				String surplus1 = surplus + "天";
 				String surplus2 = surplu + "小时";
 				String surplus3 = surplus1 + surplus2;

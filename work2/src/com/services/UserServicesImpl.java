@@ -73,17 +73,16 @@ public class UserServicesImpl implements UserServices {
 			String end = dateUtil.Dates(a[j].getMsender());
 			// System.err.println(end);
 			msgDao.updateMsgByIddaty(a[j].getMid(), end);
-			if (a[j].getMreceiver().equals("已到期")) {
+			if (a[j].getMreceiver() == "已到期") {
 				continue;
 			}
-
 			int day = Integer.parseInt(dateUtil.Date(a[j].getMsender()));
-
 //			// 判断会员到期
 			if (day <= 5) {
 				Collections.addAll(Msgs, a[j]);
 			}
 		}
+		// System.err.println(Msgs.toString());
 		model.addAttribute("daqi", Msgs);
 		List<Msg> allMsgs = msgDao.getAll(uid);
 		model.addAttribute("msgs", allMsgs);

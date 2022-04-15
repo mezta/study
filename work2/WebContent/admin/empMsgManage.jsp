@@ -57,7 +57,7 @@
 								<th class="table-author am-hide-sm-only" style="width: 10%; text-align: center">订单积分</th>
 								<th class="table-author am-hide-sm-only"
 									style="width: 10%; text-align: center">商品id</th>
-									<th class="table-title" style="width: 10%; text-align: center">下单用户</th>
+									<th class="table-title" style="width: 10%; text-align: center">用户编号</th>
 								<th class="table-set" style="width: 10%; text-align: left">操作</th>
 							</tr>
 						</thead>
