@@ -73,9 +73,7 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 				msg.setMtitle(new Date().getTime() + "");
 				msgDao.addMsg(msg);
 				return "user/buy";
-
 			} else if ("2".equals(msg.getReadflag())) {
-
 				userDao.updUserLetter(msg.getMprize(), u.getUid());
 				msg.setMtitle(new Date().getTime() + "");
 				msgDao.addMsg(msg);

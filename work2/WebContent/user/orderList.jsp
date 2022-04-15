@@ -76,29 +76,6 @@
 							</c:forEach>
 		
 		</table>	
-		<%-- <div class="container">
-			<div>
-				${userMain.uname}<h4>我的订单信息</h4>
-			</div>
-			<div style="width:80%;">
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">编号</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">下单时间</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">订单金额</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">团购套餐id</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">操作</span>
-						<br/>
-			</div>
-			<div style="width:80%;">
-				<c:forEach items="${msgs}" var="val" varStatus="vs">
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">${vs.index+1}</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">${val.msendtime}</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">${val.mprize}</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;">${val.mcontent}</span>
-						<span style="text-align: center;display:inline-block;height:40px;width:120px;"><a href="${basePath}empMsg/deleteMsgByID?mid=${val.mid}&uid=${userMain.uid}" onclick="return confirm('确实要删除吗?')">删除订单</a></span>
-						<br/>
-				</c:forEach>
-			</div>
-		</div> --%>
 		<br />
 			<!-- 信息提示 -->
 			<input value="${mess}" type="hidden" id="message">

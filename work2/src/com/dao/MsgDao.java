@@ -44,6 +44,8 @@ public interface MsgDao {
 
 	public List<Msg> getAll(@Param("uid") String uid);
 
+	public List<Msg> getAlls(@Param("uid") String uid);
+
 	public List<Msg> getMsgByUid(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize,
 			@Param("uid") String uid);
 

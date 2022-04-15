@@ -1,5 +1,7 @@
 package com.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -47,7 +49,7 @@ public class UserServicesImpl implements UserServices {
 
 	@Override
 	public String getMain(int currPage, Model model, HttpSession session, String uid) {
-		List<Msg> allMsg = msgDao.getAll(uid);
+		List<Msg> allMsg = msgDao.getAlls(uid);
 		System.err.println(allMsg.toString());
 		model.addAttribute("msgs", allMsg);
 		model.addAttribute("uid", uid);
@@ -59,6 +61,7 @@ public class UserServicesImpl implements UserServices {
 	@Override
 	public String getMainuid(int currPage, Model model, HttpSession session, String uid) {
 		DateUtil dateUtil = new DateUtil();
+		List<Msg> Msgs = new ArrayList<Msg>();
 		List<Msg> allMsg = msgDao.getAll(uid);
 		Msg[] a = new Msg[allMsg.size()];
 		int i = 0;
@@ -68,10 +71,22 @@ public class UserServicesImpl implements UserServices {
 		}
 		for (int j = 0; j < a.length; j++) {
 			String end = dateUtil.Dates(a[j].getMsender());
-			System.err.println(end);
+			// System.err.println(end);
 			msgDao.updateMsgByIddaty(a[j].getMid(), end);
+			if (a[j].getMreceiver().equals("已到期")) {
+				continue;
+			}
+
+			int day = Integer.parseInt(dateUtil.Date(a[j].getMsender()));
+
+//			// 判断会员到期
+			if (day <= 5) {
+				Collections.addAll(Msgs, a[j]);
+			}
 		}
-		model.addAttribute("msgs", allMsg);
+		model.addAttribute("daqi", Msgs);
+		List<Msg> allMsgs = msgDao.getAll(uid);
+		model.addAttribute("msgs", allMsgs);
 		int id = Integer.parseInt(uid);
 		User user = userDao.getUser(id);
 		model.addAttribute("userfomation", user);
@@ -82,6 +97,7 @@ public class UserServicesImpl implements UserServices {
 	@Override
 	public String login(User user, Model model, HttpSession session) {
 		User u1 = userDao.login(user);
+		// System.err.println(u1.getUid());
 		if (u1 != null) {
 
 			List<News> imNews = messageDao.getMainNews();
@@ -94,9 +110,36 @@ public class UserServicesImpl implements UserServices {
 			// 将用户保存在session域中
 			session.setAttribute("userMain", u1);
 			session.setAttribute("userInfo", user);
-
+			List<Msg> Msgs = new ArrayList<Msg>();
+			DateUtil dateUtil = new DateUtil();
+			System.err.println(u1.getUid());
+			String id = u1.getUid() + " ";
+			List<Msg> allMsg = msgDao.getAll(id);
+			Msg[] a = new Msg[allMsg.size()];
+			int i = 0;
+			for (Msg d : allMsg) {
+				a[i] = d;
+				i++;
+			}
+			for (int j = 0; j < a.length; j++) {
+				String end = dateUtil.Dates(a[j].getMsender());
+				// System.err.println(end);
+				msgDao.updateMsgByIddaty(a[j].getMid(), end);
+				if (a[j].getMreceiver().equals("已到期")) {
+					continue;
+				}
+				// int day = Integer.parseInt(end.substring(0, 1));
+				int day = Integer.parseInt(dateUtil.Date(a[j].getMsender()));
+				// 判断会员到期
+				System.err.println("时间  ++++++++++++" + day);
+				if (day <= 5) {
+					Collections.addAll(Msgs, a[j]);
+				}
+			}
+			model.addAttribute("daqi", Msgs);
 			return "user/mains";
 		} else if (user.getUname() == null) {
+			model.addAttribute("mess", "用户名或密码错误");
 			return "user/login";
 		} else {
 			model.addAttribute("mess", "用户名或密码错误");

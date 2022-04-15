@@ -52,11 +52,12 @@
 							<tr>
 								<th class="table-id" style="width: 10%; text-align: center">ID</th>
 									<th class="table-title" style="width: 10%; text-align: center">订单号</th>
-								<th class="table-title" style="width: 10%; text-align: center">下单时间</th>
+								<th class="table-title" style="width: 20%; text-align: center">下单时间</th>
 								<th class="table-type" style="width: 10%; text-align: center">订单金额</th>
 								<th class="table-author am-hide-sm-only" style="width: 10%; text-align: center">订单积分</th>
 								<th class="table-author am-hide-sm-only"
-									style="width: 10%; text-align: center">团购套餐id</th>
+									style="width: 10%; text-align: center">商品id</th>
+									<th class="table-title" style="width: 10%; text-align: center">下单用户</th>
 								<th class="table-set" style="width: 10%; text-align: left">操作</th>
 							</tr>
 						</thead>
@@ -64,16 +65,17 @@
 							<c:forEach items="${msgList}" var="msg" varStatus="vs">
 								<a href="../empMsg/msgAddView?id=${msg.mid}">
 									<tr>
-										<td style="width: 10%; text-align: center">${msg.mid}</td>
-										<td style="width: 10%; text-align: center">${msg.mtitle}</td>
-										<td style="width: 10%; text-align: center"><a href="#">${msg.msendtime}</a>
+										<td style="width: 10%; text-align: center"><a href="#">${msg.mid}</td>
+										<td style="width: 10%; text-align: center"><a href="#">${msg.mtitle}</td>
+										<td style="width: 20%; text-align: center"><a href="#">${msg.msendtime}</a>
 										</td>
 										<td style="width: 10%; text-align: center"><a href="#">${msg.mprize}</a>
 										</td>
 											<td class="am-hide-sm-only"
-											style="width: 20%; text-align: center">${msg.mcount}</td>
+											style="width: 10%; text-align: center"><a href="#">${msg.mcount}</td>
 										<td class="am-hide-sm-only"
-											style="width: 20%; text-align: center">${msg.mcontent}</td>
+											style="width: 10%; text-align: center"><a href="#">${msg.mcontent}</td>
+											<td style="width: 15%; text-align: center"><a href="#">${msg.uid}</a>
 										
 										<td style="width: 20%; text-align: center; ">
 											<div class="am-btn-toolbar"

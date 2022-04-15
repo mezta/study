@@ -50,13 +50,18 @@
 	<select id="getAll" resultType="com.bean.Msg">
 SELECT
 	*,
-	grouptable.gid
+	grouptable.gid,
+	grouptable.price
 FROM
 	msgtable,
 	grouptable
 WHERE
-	msgtable.mcontent = grouptable.gid
-AND msgtable.uid = #{uid}
+	msgtable.mcontent = grouptable.gid 
+	AND grouptable.price= msgtable.mprize
+	AND msgtable.uid = #{uid}
+	</select>
+	<select id="getAlls" resultType="com.bean.Msg">
+		select * from msgtable where uid = #{uid}
 	</select>
 	<!-- 分页获取 -->
 	<select id="getLimitMsg" resultType="com.bean.Msg">

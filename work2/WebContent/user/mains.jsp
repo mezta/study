@@ -31,6 +31,38 @@
 <link rel='stylesheet' href='${basePath}css/ceshi.css'>
 
 </head>
+ <style>
+        .my-alert {
+            position: absolute;
+            z-index: 1000;
+            width: 310px;
+            height: 146px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+        }
+        .my-alert .title {
+            height: 108px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 28px;
+            line-height: 24px;
+            font-size: large;
+        }
+
+        .my-alert .button {
+            text-align: center;
+        }
+        .my-alert .button button {
+            width: 120px;
+            height: 30px;
+            border: none;
+            outline: none;
+            background-color: #5c8bec;
+            cursor: pointer;
+        }
+    </style>
 <body  class=" nav-header">
 
 	<jsp:include page="header.jsp"></jsp:include>
@@ -156,6 +188,47 @@
 		alert("请先登录！");
 		location.href="${basePath}/user/login.jsp"; 
 	}
+
+    var message = document.getElementById("message").value;
+    if (message != null && message != "") {
+        alert(message);
+    }
+    
+   
+</script>
+<script type="text/javascript">
+var arry=new Array();
+
+function createAlert(mcontent, mreceiver) {
+    let div = document.createElement("div");
+    div.classList.add("my-alert")
+    
+    let title = document.createElement("div");
+    title.classList.add("title");
+    //title.innerText = "您的套餐：" + mcontent +" 剩余天数："+ mreceiver + "请及时续费！！";
+    title.innerText = "您的套餐"+mcontent+"  还有"+ mreceiver +"就到期啦！请即使续费哦!";
+    div.appendChild(title);
+
+    let button = document.createElement("div");
+    button.classList.add("button");
+    let btn = document.createElement("button");
+    btn.innerHTML = "确定"
+    btn.onclick = function() {
+        div.remove();
+    }
+    button.appendChild(btn);
+
+    div.appendChild(button)
+
+
+    document.body.appendChild(div);
+}
+
+
+<c:forEach items="${daqi}" var="val">
+createAlert(${val.mcontent},"${val.mreceiver}")
+</c:forEach>
+
 </script>
 <script src="../js/ceshi.js">
         </script>

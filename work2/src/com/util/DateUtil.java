@@ -83,19 +83,56 @@ public class DateUtil {
 
 			String endTime = dEnd;
 			// 将两个String类型的时间转换为Date类型，从而计算差值、parse()方法的作用是将String类型的时间解析为Date类型
-
+			// System.out.println((((d2.getTime() - d1.getTime()) / (60 * 60 * 1000)) % 24)
+			// + "小时");
 			Date d1 = df.parse(startTime);
+			System.err.println("现在时间" + d1);
 			Date d2 = df.parse(endTime);
-
+			System.err.println("到期时间" + d2);
 			int surplus = (int) ((d2.getTime() - d1.getTime()) / (24 * 60 * 60 * 1000));
-			if (surplus > 0) {
-				String surplus1 = surplus + "";
-				return surplus1;
+			int surplu = (int) (((d2.getTime() - d1.getTime()) / (60 * 60 * 1000)) % 24);
+			System.err.println("相减后的时间" + surplus);
+
+			if (surplu > 0) {
+				String surplus1 = surplus + "天";
+				String surplus2 = surplu + "小时";
+				String surplus3 = surplus1 + surplus2;
+				return surplus3;
 			} else {
 				String surplus2 = "已到期";
 				return surplus2;
 			}
 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return dEnd;
+
+	}
+
+	public static String Date(String dEnd) {
+		/*
+		 * 计算两个时间间隔
+		 */
+		try {
+			Date date = new Date();// 创建Date类型对象
+			// 创建SimpleDateFormat类型对象、 "yyyy-MM-dd HH:ss:mm.SSS"是正则式，分别表示年月日时分秒毫秒
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:ss:mm");
+			// 定义两个时间
+			String startTime = df.format(date);
+
+			String endTime = dEnd;
+			// 将两个String类型的时间转换为Date类型，从而计算差值、parse()方法的作用是将String类型的时间解析为Date类型
+			// System.out.println((((d2.getTime() - d1.getTime()) / (60 * 60 * 1000)) % 24)
+			// + "小时");
+			Date d1 = df.parse(startTime);
+			System.err.println("现在时间" + d1);
+			Date d2 = df.parse(endTime);
+			System.err.println("到期时间" + d2);
+			int surplus = (int) ((d2.getTime() - d1.getTime()) / (24 * 60 * 60 * 1000));
+			System.err.println("相减后的时间" + surplus);
+			String surplus1 = surplus + "";
+			return surplus1;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
