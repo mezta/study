@@ -24,9 +24,9 @@
 	<!-- 新增项目 -->
 	<insert id="addCourse" parameterType="com.bean.Course">
 		insert into course
-		(courseName,classify,time,coachId,num,content)
+		(courseName,classify,time,coachId,num,content,price)
 		values(#{courseName},#{classify},#{time},
-		#{coachId},#{num},#{content})
+		#{coachId},#{num},#{content},#{price})
 	</insert>
 	<!-- 通过id获取项目 -->
 	<select id="getCourseByID" resultType="com.bean.Course"
@@ -40,10 +40,19 @@
 		select * from course
 		where coachId=#{coachid} order by coachId asc
 	</select>
+	<!-- 通过id获取教练 -->
+	<select id="getuserAllCourse" resultType="com.pojo.courses">
+		select c.*,t.name from course c,coach t  where 1=1
+		
+			and name like #{CName}
+	
+		and c.coachId = t.id
+		order by cid asc
+	</select>
 	<!-- 修改项目 -->
 	<update id="updateCourse" parameterType="com.bean.Course">
 		update course set courseName=#{courseName},classify=#{classify},time=#{time},
-		coachId=#{coachId},num=#{num},content=#{content}
+		coachId=#{coachId},num=#{num},content=#{content},price=#{price}
 		where cid=#{cid}
 	</update>
 	<!-- 删除项目 -->

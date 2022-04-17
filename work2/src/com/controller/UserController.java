@@ -29,10 +29,7 @@ public class UserController {
 		if (currPage == null) {
 			currPage = 1;
 		}
-		System.err.println(currPage);
-		System.err.println(model);
-		System.err.println(session);
-		System.err.println(uid);
+
 		return userServices.getMain(currPage, model, session, uid);
 	}
 
@@ -41,10 +38,6 @@ public class UserController {
 		if (currPage == null) {
 			currPage = 1;
 		}
-		System.err.println(currPage);
-		System.err.println(model);
-		System.err.println(session);
-		System.err.println(uid);
 
 		return userServices.getMainuid(currPage, model, session, uid);
 	}

@@ -11,7 +11,7 @@ public class Msg {
 	private User user;
 	private int mprize;
 	private int uid;
-	private int mletter;
+	private String mletter;
 	private String aprize;
 	private int mcount;
 	private String uname;
@@ -60,11 +60,11 @@ public class Msg {
 		return msendtime;
 	}
 
-	public int getMletter() {
+	public String getMletter() {
 		return mletter;
 	}
 
-	public void setMmletter(int mletter) {
+	public void setMmletter(String mletter) {
 		this.mletter = mletter;
 	}
 

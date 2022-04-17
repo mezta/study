@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -12,10 +14,12 @@ import com.bean.Coach;
 import com.bean.Course;
 import com.bean.Grouptable;
 import com.bean.News;
+import com.bean.User;
 import com.dao.CoachDao;
 import com.dao.CourseDao;
 import com.dao.GroupDao;
 import com.dao.NewsDao;
+import com.dao.UserDao;
 import com.pojo.courses;
 
 @Service("CourseSerivces")
@@ -26,6 +30,8 @@ public class CourseServicesImpl implements CourseServices {
 	private CoachDao coachDao;
 	@Autowired
 	private NewsDao newsDao;
+	@Autowired
+	private UserDao UserDao;
 	@Autowired
 	private GroupDao groupDao;
 
@@ -172,6 +178,21 @@ public class CourseServicesImpl implements CourseServices {
 		return null;
 	}
 
+	// 教练所属的项目
+	@Override
+	public String getuserAllCourse(Model model, String CName, HttpSession session) {
+		User u = (User) session.getAttribute("userMain");
+		// model.addAttribute("user", u);
+		List<courses> course = courseDao.getuserAllCourse(CName);
+		model.addAttribute("course", course);
+		List<Coach> coach = coachDao.getAllCoachs();
+		model.addAttribute("coach", coach);
+		List<News> news = newsDao.AllNews();
+		model.addAttribute("news", news);
+		return "user/bucoachList";
+	}
+
+	// 健身项目查找相关的会员套餐
 	@Override
 	public String getCourseByName(Model model, String TName) {
 		List<Grouptable> allGroups = groupDao.getAllGroupByName(TName);

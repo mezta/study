@@ -56,8 +56,9 @@
 								<th class="table-author am-hide-sm-only" style="width: 15%; text-align: center">项目时间</th>
 								<th class="table-author am-hide-sm-only" style="width: 15%; text-align: center">项目介绍</th>
 								<th class="table-type" style="width: 10%; text-align: center">教练名称</th>
-								<th class="table-author am-hide-sm-only"
-									style="width: 15%; text-align: center">教练课时</th>
+								<th class="table-type"
+									style="width: 10%; text-align: center">教练课时</th>
+								<th class="table-type" style="width: 10%; text-align: center">价格</th>
 								<th class="table-set" style="width: 20%; text-align: center">操作</th>
 							</tr>
 						</thead>
@@ -71,10 +72,12 @@
 										style="width: 10%; text-align: center">${val.time}</td>
 									<td class="am-hide-sm-only"
 										style="width: 10%; text-align: center">${val.content}</td>
+									<td class=""
+										style="width: 15%; text-align: center">${val.name}</td>
 									<td class="am-hide-sm-only"
-										style="width: 20%; text-align: center">${val.name}</td>
-									<td class="am-hide-sm-only"
-										style="width: 15%; text-align: center">${val.num}</td>
+										style="width: 10%; text-align: center">${val.num}</td>
+										<td class="am-hide-sm-only"
+										style="width: 10%; text-align: center">${val.price}</td>
 									<td style="width: 20%; text-align: center;">
 										<div class="am-btn-toolbar"
 											style="text-align: center; margin-left: 40px">

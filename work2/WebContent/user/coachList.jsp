@@ -63,16 +63,15 @@
 						<c:forEach items="${course}" var="val" varStatus="vs">
 									&nbsp;${val.courseName}
 						  </c:forEach>
+						  	
 						  </p><span style="color: black;"></span>
 					</div>
 				</div>
-			<%-- 	<p class="more" style='text-align:right; color:black'>
-                                        <a href="${basePath}/course/getAllCourse?CName=${coach.name}"​ title="">
-                                           	查看相关项目介绍>>
-
-						
+				<p class="more" style='text-align:right; color:black'>
+                                        <a href="${basePath}course/getAllCourseByNamea?CName=${coach.name}"​ title="">
+                                           购买私人教练课程>>
                                         </a>
-                                    </p>  --%>
+                                    </p> 
 				</div>
 						
 						<div class="">
@@ -149,5 +148,9 @@
         </button>
 
 </body>
-<script src="${basePath}js/admin/jquery-3.1.0.min.js" type="text/javascript"></script>
+<script src="${basePath}js/admin/jquery-3.1.0.min.js" type="text/javascript">
+function display() {
+	alert("请先登录！");
+}
+</script>
 </html>

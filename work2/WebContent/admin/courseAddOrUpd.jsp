@@ -82,6 +82,14 @@
 								</div>
 							</div>
 							<div class="am-form-group">
+								<label for="user-name" class="am-u-sm-3 am-form-label">
+									价格
+								</label>
+								<div class="am-u-sm-9">
+									<input id="" required value="${course.price}" name="price" type="text">
+								</div>
+							</div>
+							<div class="am-form-group">
 								<div class="am-u-sm-9 am-u-sm-push-3">
 									<input id="addRole" class="am-btn am-btn-success" value="提交" type="submit">
 									<input id="addRole" class="am-btn am-btn-success" value="重置" type="reset">

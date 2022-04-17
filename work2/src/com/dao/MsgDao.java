@@ -19,6 +19,8 @@ public interface MsgDao {
 
 	public Msg updateMsgByIddaty(@Param("mid") Integer mid, @Param("mreceiver") String mreceiver);
 
+	public void updateMsg(@Param("mletter") String mletter, @Param("mtitle") String mtitle);
+
 	public int addMsg(Msg msg);
 
 	public int addMsgl(Msg msg);
@@ -42,7 +44,9 @@ public interface MsgDao {
 
 	public void updateMsgById(Msg msg);
 
-	public List<Msg> getAll(@Param("uid") String uid);
+	public List<Msg> getAll(@Param("uid") String uid, @Param("mletter") String mletter);
+
+	public List<Msg> getAllcourse(@Param("uid") String uid, @Param("mletter") String mletter);
 
 	public List<Msg> getAlls(@Param("uid") String uid);
 

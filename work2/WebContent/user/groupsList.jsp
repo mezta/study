@@ -32,6 +32,7 @@
 			background-color: #bdbc9d;
 		}
 
+
 </style>
 <meta name="renderer" content="webkit">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -73,26 +74,31 @@
                                     <h4>
                       <%--                   
                                           套餐${vs.index+1} --%>
-                                        		套餐${val.gid}  
+                                        		团购套餐${val.gid}  
                                     </h4>
-                                    <p class="info">
+                                    <p style="font-size: 20px;	">
                                         <span>
                                             <i class="fa fa-calendar">
                                             </i>
                                             项目：${val.courseName1}
                                         </span>
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span>
                                             <i class="fa fa-pencil-square">
                                             </i>
                                             项目次数：${val.course1Num}
                                         </span>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      </p>
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       <p style="font-size: 20px;	">  
                                         <span>
                                             <i class="fa fa-calendar">
                                             
                                             </i>
                                             项目：${val.courseName2}
                                         </span>
+                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span>
                                             <i class="fa fa-pencil-square">
                                             
@@ -108,7 +114,7 @@
                                  	有效期(天)：<span style="color: red;">${val.day}
                                     </p>
                                     
-                                 <p class="more">
+                                 <p class="">
                         <form action="${basePath}empMsg/empMsgAdd" method="post">
 							<input type="hidden" name="uname" value="${userMain.uname}">
 							<input type="hidden" name="mcontent" value="${val.gid}">
@@ -125,9 +131,36 @@
 			                <!--   <a class="a2" href="#" style="background-color:orange;">购买套餐</a> -->
 				 			</c:if>
 						</form> 
+
                                     </p>
+                    <%--  <c:if test="${userMain.uname != null}">
+						<c:if test="${user.letter >= val.letter}">
+						<form action="${basePath}empMsg/empMsgAdd" method="post">
+							<input type="hidden" name="uname" value="${userMain.uname}">
+							<input type="hidden" name="mcontent" value="${val.gid}">
+							<input type="hidden" name="mprize" value="${val.price}">
+							<input type="hidden" name="uid" value="${userMain.uid}">
+							<input type="hidden" name="readflag" value="4">
+							<input type="hidden" name="mcount" value="${val.letter}">
+							<!-- <a class="a2" href="#" style="background-color:orange;">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+							<button style="background-color:orange;border:6px solid orange;" type="submit">积分兑换</button>&nbsp;&nbsp;&nbsp;&nbsp;
+ 						</form>
+						</c:if>
+					</c:if>
+					<c:if test="${userMain.uname != null}">
+						<c:if test="${user.letter < val.letter}">
+								<a  style="color: #000000;padding: 11px; font-size: 13px;background-color:orange;" href="#" style="background-color:orange;" onclick="getLetter()">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 							<button style="background-color:orange;border:6px solid orange;type="submit"><a href="#" onclick="getLetter()">积分兑换</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
+ -->						</c:if>
+					</c:if>
+					<c:if test="${userMain.uname == null}">
+							<a class="a2" href="#" style="background-color:orange;" onclick="display()">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<!-- 							<button style="background-color:orange;border:1px solid orange;width:100px;"><a href="#" onclick="display()">积分兑换</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
+ -->               </c:if>
+                                    	 --%>	
                                 </li>
                             </c:forEach>
+                          
                           </ul>
                             
                             </div>

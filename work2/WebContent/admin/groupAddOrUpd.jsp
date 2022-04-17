@@ -48,7 +48,7 @@
 							</div>
 							<div class="am-form-group">
 								<label for="user-name" class="am-u-sm-3 am-form-label">
-									团购项目2
+									套餐项目2
 								</label>
 								<div class="am-u-sm-9">
 									<select class="form-control" name="courseName2"> 

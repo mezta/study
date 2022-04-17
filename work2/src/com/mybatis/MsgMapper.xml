@@ -58,8 +58,25 @@ FROM
 WHERE
 	msgtable.mcontent = grouptable.gid 
 	AND grouptable.price= msgtable.mprize
+	AND msgtable.mletter='${mletter}'
 	AND msgtable.uid = #{uid}
 	</select>
+	 <select id="getAllcourse" resultType="com.bean.Msg">
+SELECT
+	*,
+	course.cid,
+	course.price
+FROM
+	msgtable,
+	course
+WHERE
+
+msgtable.mcontent = course.cid
+	AND course.price = msgtable.mprize
+	AND msgtable.mletter='${mletter}'
+	AND msgtable.uid = #{uid}
+
+	</select> 
 	<select id="getAlls" resultType="com.bean.Msg">
 		select * from msgtable where uid = #{uid}
 	</select>
@@ -83,6 +100,11 @@ WHERE
 		update msgtable set readflag=#{readflag}
 		where mid=#{mid}
 	</update>
+	<!-- 修改标识 -->
+	<update id="updateMsg" parameterType="com.bean.Msg">
+		update msgtable set mletter='${mletter}'
+		where mtitle='${mtitle}'
+	</update>
 	<!-- 获取符合条件的所有信息 -->
 	<select id="getListMsg" resultMap="msgResultMap">
 		select * from msgtable where 1=1
@@ -105,13 +127,13 @@ WHERE
 	</select>
 	<insert id="addMsg" parameterType="Integer">
 		insert into msgtable
-		(mtitle,mcontent,msendtime,msender,mprize,uid)
-		values("${mtitle}","${mcontent}",now(),"${msender}","${mprize}","${uid}")
+		(mtitle,mcontent,msendtime,msender,mprize,uid,mletter)
+		values("${mtitle}","${mcontent}",now(),"${msender}","${mprize}","${uid}","${mletter}")
 	</insert>
 	<insert id="addMsgl" parameterType="Integer">
 		insert into msgtable
-		(mtitle,mcontent,msendtime,mcount,uid)
-		values("${mtitle}","${mcontent}",now(),"${mcount}","${uid}")
+		(mtitle,mcontent,msendtime,mcount,uid,mletter)
+		values("${mtitle}","${mcontent}",now(),"${mcount}","${uid}","${mletter}")
 	</insert>
 	<delete id="delMsg" parameterType="Integer">
 		delete from msgtable where

@@ -38,4 +38,7 @@ public interface CourseDao {
 	// 通过id删除项目
 	public int deleteCourseByID(int cid);
 
+	// 获取项目通过id
+	public List<courses> getuserAllCourse(String CName);
+
 }

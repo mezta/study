@@ -62,29 +62,34 @@ public class UserServicesImpl implements UserServices {
 	public String getMainuid(int currPage, Model model, HttpSession session, String uid) {
 		DateUtil dateUtil = new DateUtil();
 		List<Msg> Msgs = new ArrayList<Msg>();
-		List<Msg> allMsg = msgDao.getAll(uid);
-		Msg[] a = new Msg[allMsg.size()];
+		String mletter = "支付成功";
+		List<Msg> allMsg = msgDao.getAll(uid, mletter);
+		List<Msg> allcourse = msgDao.getAllcourse(uid, mletter);
+		Msg[] a = new Msg[allMsg.size() + allcourse.size()];
 		int i = 0;
 		for (Msg d : allMsg) {
+			a[i] = d;
+			++i;
+		}
+		for (Msg d : allcourse) {
 			a[i] = d;
 			i++;
 		}
 		for (int j = 0; j < a.length; j++) {
 			String end = dateUtil.Dates(a[j].getMsender());
-			// System.err.println(end);
 			msgDao.updateMsgByIddaty(a[j].getMid(), end);
 			if (a[j].getMreceiver() == "已到期") {
 				continue;
 			}
 			int day = Integer.parseInt(dateUtil.Date(a[j].getMsender()));
-//			// 判断会员到期
+			// 判断会员到期
 			if (day <= 5) {
 				Collections.addAll(Msgs, a[j]);
 			}
 		}
-		// System.err.println(Msgs.toString());
 		model.addAttribute("daqi", Msgs);
-		List<Msg> allMsgs = msgDao.getAll(uid);
+		List<Msg> allMsgs = msgDao.getAll(uid, mletter);
+		allMsgs.addAll(allcourse);
 		model.addAttribute("msgs", allMsgs);
 		int id = Integer.parseInt(uid);
 		User user = userDao.getUser(id);
@@ -113,10 +118,16 @@ public class UserServicesImpl implements UserServices {
 			DateUtil dateUtil = new DateUtil();
 			System.err.println(u1.getUid());
 			String id = u1.getUid() + " ";
-			List<Msg> allMsg = msgDao.getAll(id);
-			Msg[] a = new Msg[allMsg.size()];
+			String mletter = "支付成功";
+			List<Msg> allMsg = msgDao.getAll(id, mletter);
+			List<Msg> allcourse = msgDao.getAllcourse(id, mletter);
+			Msg[] a = new Msg[allMsg.size() + allcourse.size()];
 			int i = 0;
 			for (Msg d : allMsg) {
+				a[i] = d;
+				i++;
+			}
+			for (Msg d : allcourse) {
 				a[i] = d;
 				i++;
 			}

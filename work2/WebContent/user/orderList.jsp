@@ -35,7 +35,7 @@
 								<th class=" table-id" style="width: 10%; text-align: center">订单积分</th>
 								<th class="table-id"
 									style="width: 10%; text-align: center">商品编码</th>
-									<!-- <th class="" style="width: 10%; text-align: center">会员到期时间</th> -->
+								<th class="" style="width: 10%; text-align: center">支付状态</th> 
 								<th class="table-set" style="width: 10%; text-align: center">操作</th>
 							</tr>
 							<c:forEach items="${msgs}" var="val" varStatus="vs">
@@ -52,9 +52,9 @@
 											style="width: 10%; text-align: center">${val.mcount}</td>
 										<td class=""
 											style="width: 10%; text-align: center">${val.mcontent}</td>
-											<%-- <td class=""
-											style="width: 12%; text-align: center">${val.msender}</td>
-							 --%>
+											 <td class=""
+											style="width: 12%; text-align: center">${val.mletter}</td>
+							 
 										<td style="width: 20%; text-align: center; ">
 											<div class="am-btn-toolbar"
 												style="text-align: center;">
@@ -64,7 +64,7 @@
 															<span class="am-icon-trash-o" style="text-align: center"></span>
 															<a href="${basePath}empMsg/deleteMsgByID?mid=${val.mid}&uid=${userMain.uid}" onclick="return confirm('确实要删除吗?')">删除订单</a>
 														</button>
-								
+												
 												
 												</button>
 													</div>

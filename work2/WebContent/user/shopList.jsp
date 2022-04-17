@@ -136,7 +136,7 @@
 							<input type="hidden" name="mcontent" value="${shop.shopid}">
 							<input type="hidden" name="mprize" value="${shop.price}">
 							<input type="hidden" name="uid" value="${userMain.uid}">
-							<input type="hidden" name="readflag" value="3">
+							<input type="hidden" name="readflag" value="4">
 							<input type="hidden" name="mcount" value="${shop.letter}">
 							<!-- <a class="a2" href="#" style="background-color:orange;">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
 							<button style="background-color:orange;border:6px solid orange;" type="submit">积分兑换</button>&nbsp;&nbsp;&nbsp;&nbsp;

@@ -1,5 +1,7 @@
 package com.services;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.ui.Model;
 
 import com.bean.Course;
@@ -28,7 +30,6 @@ public interface CourseServices {
 
 	public String getCourseByName(Model model, String TName);
 
-	/*
-	 * // 通过id获取课程 public String getCourseById(int courid, Model model);
-	 */
+	public String getuserAllCourse(Model model, String CName, HttpSession session);
+
 }

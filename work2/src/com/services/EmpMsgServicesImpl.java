@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.bean.Course;
 import com.bean.Grouptable;
 import com.bean.Msg;
 import com.bean.User;
+import com.dao.CourseDao;
 import com.dao.GroupDao;
 import com.dao.MsgDao;
 import com.dao.UserDao;
@@ -27,6 +29,8 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 	UserDao userDao;
 	@Autowired
 	GroupDao groupDao;
+	@Autowired
+	CourseDao courseDao;
 
 	@Override
 	public String getListByLimit(Model model, Integer rid, Integer pageNo, Integer pageSize, String likeTitle) {
@@ -60,6 +64,12 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 	}
 
 	@Override
+	public String updateMsg(String out, String mletter) {
+		msgDao.updateMsg(mletter, out);
+		return "user/mains";
+	}
+
+	@Override
 	public String addMsg(Model model, Msg msg, HttpSession session) {
 		System.err.println(msg.getReadflag());
 		msg.setUname(msg.getUname().toString());
@@ -71,16 +81,30 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 				DateUtil dateUtil = new DateUtil();
 				msg.setMsender(dateUtil.findDate(grouptable.getDay()));
 				msg.setMtitle(new Date().getTime() + "");
+				msg.setMmletter("未支付");
 				msgDao.addMsg(msg);
 				return "user/buy";
 			} else if ("2".equals(msg.getReadflag())) {
 				userDao.updUserLetter(msg.getMprize(), u.getUid());
 				msg.setMtitle(new Date().getTime() + "");
+				msg.setMmletter("未支付");
 				msgDao.addMsg(msg);
 				return "user/buyshop";
+			} else if ("3".equals(msg.getReadflag())) {
+				userDao.updUserLetter(msg.getMprize(), u.getUid());
+				Course course = courseDao.getCourseByID(msg.getMcontent());
+				System.err.println("course-----------------" + course);
+				DateUtil dateUtil = new DateUtil();
+				String dayString = course.getNum() + "";
+				msg.setMsender(dateUtil.findDate(dayString));
+				msg.setMtitle(new Date().getTime() + "");
+				msg.setMmletter("未支付");
+				msgDao.addMsg(msg);
+				return "user/buy";
 			} else {
 				userDao.updUserLetter1(msg.getMcount(), u.getUid());
 				msg.setMtitle(new Date().getTime() + "");
+				msg.setMmletter("支付成功");
 				int msgnum = msgDao.addMsgl(msg);
 				if (msgnum <= 0) {
 					model.addAttribute("mess", "兑换失败");

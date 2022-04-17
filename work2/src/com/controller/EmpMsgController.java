@@ -1,5 +1,9 @@
 package com.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -8,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.bean.Msg;
 import com.services.EmpMsgServices;
@@ -137,6 +143,44 @@ public class EmpMsgController {
 		// 请求
 		String result = alipayClient.pageExecute(alipayRequest).getBody();
 		return result;
+	}
+
+	/**
+	 * 同步跳转
+	 *
+	 * @param request
+	 * @throws Exception
+	 */
+	@RequestMapping("/returnUrl")
+	public String returnUrl(HttpServletRequest request) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		// 获取支付宝GET过来反馈信息（官方固定代码）
+		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String[]> requestParams = request.getParameterMap();
+		for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
+			String name = (String) iter.next();
+			String[] values = (String[]) requestParams.get(name);
+			String valueStr = "";
+			for (int i = 0; i < values.length; i++) {
+				valueStr = (i == values.length - 1) ? valueStr + values[i] : valueStr + values[i] + ",";
+			}
+			params.put(name, valueStr);
+		}
+		boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayConfig.alipay_public_key, AlipayConfig.charset,
+				AlipayConfig.sign_type); // 调用SDK验证签名
+
+		// 返回界面
+		if (signVerified) {
+			System.out.println("前往支付成功页面");
+			String out = request.getParameter("out_trade_no");
+			String mletter = "支付成功";
+			return empMsgServices.updateMsg(out, mletter);
+		} else {
+			System.out.println("前往支付失败页面");
+			mav.setViewName("failReturn");
+		}
+		return null;
 	}
 
 }

@@ -19,6 +19,7 @@ import com.dao.CoachDao;
 import com.dao.CourseDao;
 import com.dao.GroupDao;
 import com.dao.NewsDao;
+import com.dao.UserDao;
 
 @Service("GroupServices")
 public class GroupServicesImpl implements GroupServices {
@@ -30,6 +31,8 @@ public class GroupServicesImpl implements GroupServices {
 	private CoachDao coachDao;
 	@Autowired
 	private NewsDao newsDao;
+	@Autowired
+	private UserDao userDao;
 
 	@Override
 	public String getLimitGroups(int currPage, Model model, String TName) {
@@ -120,7 +123,10 @@ public class GroupServicesImpl implements GroupServices {
 			end = len;
 		}
 		List<Grouptable> limitGroups = groupDao.getLimitGroups(begin, pageSize, TName);
+
 		User u = (User) session.getAttribute("userMain");
+		User us = userDao.getUser(u.getUid());
+		model.addAttribute("user", us);
 		model.addAttribute("count", len);
 		model.addAttribute("groupList", limitGroups);
 		model.addAttribute("currPage", currPage);

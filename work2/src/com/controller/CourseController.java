@@ -1,5 +1,7 @@
 package com.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,6 +64,13 @@ public class CourseController {
 	@RequestMapping("/getAllCourseByName")
 	public String getAllCourseByName(Model model, String TName) {
 		return courseServices.getCourseByName(model, TName);
+
+	}
+
+	// 查询类似项目
+	@RequestMapping("/getAllCourseByNamea")
+	public String getAllCourseByNameA(Model model, String CName, HttpSession session) {
+		return courseServices.getuserAllCourse(model, CName, session);
 
 	}
 
