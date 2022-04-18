@@ -93,7 +93,7 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 			} else if ("3".equals(msg.getReadflag())) {
 				userDao.updUserLetter(msg.getMprize(), u.getUid());
 				Course course = courseDao.getCourseByID(msg.getMcontent());
-				System.err.println("course-----------------" + course);
+				// System.err.println("course-----------------" + course);
 				DateUtil dateUtil = new DateUtil();
 				String dayString = course.getNum() + "";
 				msg.setMsender(dateUtil.findDate(dayString));
@@ -101,11 +101,26 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 				msg.setMmletter("未支付");
 				msgDao.addMsg(msg);
 				return "user/buy";
-			} else {
+			} else if ("4".equals(msg.getReadflag())) {
 				userDao.updUserLetter1(msg.getMcount(), u.getUid());
 				msg.setMtitle(new Date().getTime() + "");
 				msg.setMmletter("支付成功");
 				int msgnum = msgDao.addMsgl(msg);
+				if (msgnum <= 0) {
+					model.addAttribute("mess", "兑换失败");
+				} else {
+					model.addAttribute("mess", "兑换成功");
+				}
+				return this.getEmpMsgByUid(u.getUid(), model);
+			} else {
+				userDao.updUserLetter1(msg.getMcount(), u.getUid());
+				Grouptable grouptable = groupDao.getGroupsByID(msg.getMcontent());
+				System.err.println(grouptable.getDay());
+				DateUtil dateUtil = new DateUtil();
+				msg.setMsender(dateUtil.findDate(grouptable.getDay()));
+				msg.setMtitle(new Date().getTime() + "");
+				msg.setMmletter("支付成功");
+				int msgnum = msgDao.addMsgz(msg);
 				if (msgnum <= 0) {
 					model.addAttribute("mess", "兑换失败");
 				} else {
@@ -119,47 +134,6 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 			return "redirect:/user/getMain?uid=" + u.getUid();
 		}
 	}
-
-//	@Override
-//	public String addMsg(Model model, Msg msg, HttpSession session) {
-//		System.err.println(msg.getReadflag());
-//		msg.setUname(msg.getUname().toString());
-//		User u = (User) session.getAttribute("userMain");
-//		if (u != null) {
-//			if ("1".equals(msg.getReadflag())) {
-//				userDao.updUserLetter(msg.getMcount(), u.getUid());
-//				int msgnum = msgDao.addMsg(msg);
-//				if (msgnum <= 0) {
-//					model.addAttribute("mess", "购买失败");
-//				} else {
-//					model.addAttribute("mess", "购买成功");
-//				}
-//				return this.getEmpMsgByUid(u.getUid(), model);
-//			} else if ("2".equals(msg.getReadflag())) {
-//				userDao.updUserLetter(msg.getMcount(), u.getUid());
-//				int msgnum = msgDao.addMsg(msg);
-//				if (msgnum <= 0) {
-//					model.addAttribute("mess", "购买失败");
-//				} else {
-//					model.addAttribute("mess", "购买成功");
-//				}
-//				return this.getEmpMsgByUid(u.getUid(), model);
-//			} else {
-//				userDao.updUserLetter1(msg.getMcount(), u.getUid());
-//				int msgnum = msgDao.addMsgl(msg);
-//				if (msgnum <= 0) {
-//					model.addAttribute("mess", "兑换失败");
-//				} else {
-//					model.addAttribute("mess", "兑换成功");
-//				}
-//				return this.getEmpMsgByUid(u.getUid(), model);
-//			}
-//
-//		} else {
-//			model.addAttribute("mess", "请先登录");
-//			return "redirect:/user/getMain?uid=" + u.getUid();
-//		}
-//	}
 
 	private String getEmpMsgByUid(int uid, Model model) {
 		List<Msg> msgList = msgDao.getAmsg(uid);

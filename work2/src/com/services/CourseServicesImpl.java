@@ -194,9 +194,11 @@ public class CourseServicesImpl implements CourseServices {
 
 	// 健身项目查找相关的会员套餐
 	@Override
-	public String getCourseByName(Model model, String TName) {
+	public String getCourseByName(Model model, String TName, HttpSession session) {
 		List<Grouptable> allGroups = groupDao.getAllGroupByName(TName);
-
+		User u = (User) session.getAttribute("userMain");
+		User us = UserDao.getUser(u.getUid());
+		model.addAttribute("user", us);
 		System.err.println(allGroups);
 		model.addAttribute("groupList", allGroups);
 		List<Course> course = courseDao.getAllCourses();
@@ -205,6 +207,7 @@ public class CourseServicesImpl implements CourseServices {
 		model.addAttribute("coach", coach);
 		List<News> news = newsDao.AllNews();
 		model.addAttribute("news", news);
+		model.addAttribute("mess", "请您先登录方可查看哦！");
 		return "user/groupsList";
 	}
 

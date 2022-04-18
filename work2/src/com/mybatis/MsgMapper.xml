@@ -77,6 +77,19 @@ msgtable.mcontent = course.cid
 	AND msgtable.uid = #{uid}
 
 	</select> 
+	<select id="getAllmsgj" resultType="com.bean.Msg">
+	SELECT
+	*,
+	grouptable.gid
+FROM
+	msgtable,
+	grouptable
+WHERE
+	msgtable.mcontent = grouptable.gid 
+	AND grouptable.letter= msgtable.mcount
+	AND msgtable.mletter='${mletter}'
+	AND msgtable.uid = #{uid}
+	</select>
 	<select id="getAlls" resultType="com.bean.Msg">
 		select * from msgtable where uid = #{uid}
 	</select>
@@ -134,6 +147,11 @@ msgtable.mcontent = course.cid
 		insert into msgtable
 		(mtitle,mcontent,msendtime,mcount,uid,mletter)
 		values("${mtitle}","${mcontent}",now(),"${mcount}","${uid}","${mletter}")
+	</insert>
+	<insert id="addMsgz" parameterType="Integer">
+		insert into msgtable
+		(mtitle,mcontent,msendtime,mcount,msender,uid,mletter)
+		values("${mtitle}","${mcontent}",now(),"${mcount}","${msender}","${uid}","${mletter}")
 	</insert>
 	<delete id="delMsg" parameterType="Integer">
 		delete from msgtable where

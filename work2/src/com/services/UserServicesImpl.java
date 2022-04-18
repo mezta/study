@@ -65,13 +65,18 @@ public class UserServicesImpl implements UserServices {
 		String mletter = "支付成功";
 		List<Msg> allMsg = msgDao.getAll(uid, mletter);
 		List<Msg> allcourse = msgDao.getAllcourse(uid, mletter);
-		Msg[] a = new Msg[allMsg.size() + allcourse.size()];
+		List<Msg> allJMsg = msgDao.getAllmsgj(uid, mletter);
+		Msg[] a = new Msg[allMsg.size() + allcourse.size() + allJMsg.size()];
 		int i = 0;
 		for (Msg d : allMsg) {
 			a[i] = d;
-			++i;
+			i++;
 		}
 		for (Msg d : allcourse) {
+			a[i] = d;
+			i++;
+		}
+		for (Msg d : allJMsg) {
 			a[i] = d;
 			i++;
 		}
@@ -89,7 +94,11 @@ public class UserServicesImpl implements UserServices {
 		}
 		model.addAttribute("daqi", Msgs);
 		List<Msg> allMsgs = msgDao.getAll(uid, mletter);
+		List<Msg> allJ = msgDao.getAllmsgj(uid, mletter);
 		allMsgs.addAll(allcourse);
+
+		allMsgs.addAll(allJ);
+		// System.err.println("asdsadasdadsad=" + allJMsg);
 		model.addAttribute("msgs", allMsgs);
 		int id = Integer.parseInt(uid);
 		User user = userDao.getUser(id);
@@ -121,13 +130,18 @@ public class UserServicesImpl implements UserServices {
 			String mletter = "支付成功";
 			List<Msg> allMsg = msgDao.getAll(id, mletter);
 			List<Msg> allcourse = msgDao.getAllcourse(id, mletter);
-			Msg[] a = new Msg[allMsg.size() + allcourse.size()];
+			List<Msg> allJMsg = msgDao.getAllmsgj(id, mletter);
+			Msg[] a = new Msg[allMsg.size() + allcourse.size() + allJMsg.size()];
 			int i = 0;
 			for (Msg d : allMsg) {
 				a[i] = d;
 				i++;
 			}
 			for (Msg d : allcourse) {
+				a[i] = d;
+				i++;
+			}
+			for (Msg d : allJMsg) {
 				a[i] = d;
 				i++;
 			}

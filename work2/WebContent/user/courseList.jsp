@@ -112,9 +112,14 @@
                                   		 项目描述：${val.content}
                                     </p>
                                   <p class="more">
-                                        <a href="${basePath}course/getAllCourseByName?TName=${val.courseName}"​ title="">
+                                  <c:if test="${userMain.uname == null}">
+                                        <a href=""​ onclick="display()"title="">
                                            相关会员套餐>>
-
+								</c:if>
+								 <c:if test="${userMain.uname != null}">
+                                        <a href="${basePath}course/getAllCourseByName?TName=${val.courseName}"​title="">
+                                           相关会员套餐>>
+								</c:if>
 						
                                         </a>
                                     </p> 
@@ -238,7 +243,7 @@
 <script src="${basePath}js/admin/jquery-3.1.0.min.js" type="text/javascript"></script>
 <script>
 function display() {
-	alert("请先登录！");
+	alert("详细内容，请先登录哦！");
 }
 
 

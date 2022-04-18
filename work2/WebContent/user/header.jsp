@@ -60,7 +60,13 @@
 								</c:if>
                                 <li><a href="${basePath}course/getAllCourse?currPage=1">健身项目</a></li>
 								<li><a href="${basePath}coach/getAllCoachs?currPage=1">教练团队</a></li>
-								<li><a href="${basePath}groups/getAllGroup?currPage=1">会员套餐</a></li>
+								<c:if test="${userMain.uname == null}">
+                                       <li> <a href=""​ onclick="display()"title=""> 会员套餐</a></li>
+								</c:if>
+								<c:if test="${userMain.uname != null}">
+                                      <li><a href="${basePath}groups/getAllGroup?currPage=1">会员套餐</a></li>
+								</c:if>
+								
 								<li><a href="${basePath}shop/getAllShop?currPage=1">热销商品</a></li>
 								<c:if test="${userInfo.uname == null}">
 				                   	<li><a href="#" onclick="display()">我的订单</a></li>

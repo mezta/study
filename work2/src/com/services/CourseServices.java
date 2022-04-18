@@ -28,7 +28,7 @@ public interface CourseServices {
 
 	public String getAllCourse(int currPage, Model model, String CName);
 
-	public String getCourseByName(Model model, String TName);
+	public String getCourseByName(Model model, String TName, HttpSession session);
 
 	public String getuserAllCourse(Model model, String CName, HttpSession session);
 

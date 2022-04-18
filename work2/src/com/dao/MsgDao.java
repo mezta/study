@@ -25,6 +25,8 @@ public interface MsgDao {
 
 	public int addMsgl(Msg msg);
 
+	public int addMsgz(Msg msg);
+
 	public int delMsg(Integer id);
 
 	public int getMsgCount(@Param("rid") Integer rid, @Param("likeTitle") String likeTitle);
@@ -47,6 +49,8 @@ public interface MsgDao {
 	public List<Msg> getAll(@Param("uid") String uid, @Param("mletter") String mletter);
 
 	public List<Msg> getAllcourse(@Param("uid") String uid, @Param("mletter") String mletter);
+
+	public List<Msg> getAllmsgj(@Param("uid") String uid, @Param("mletter") String mletter);
 
 	public List<Msg> getAlls(@Param("uid") String uid);
 

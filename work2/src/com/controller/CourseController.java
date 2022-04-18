@@ -62,8 +62,8 @@ public class CourseController {
 
 	// 查询类似项目
 	@RequestMapping("/getAllCourseByName")
-	public String getAllCourseByName(Model model, String TName) {
-		return courseServices.getCourseByName(model, TName);
+	public String getAllCourseByName(Model model, String TName, HttpSession session) {
+		return courseServices.getCourseByName(model, TName, session);
 
 	}
 

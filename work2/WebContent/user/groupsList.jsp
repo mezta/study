@@ -60,6 +60,7 @@
                                         </a>
                                         >
                                     </ol>
+                                         <a style="margin-left: 551px;">(当前可用积分：${user.letter})</a>
                                 </div>
                             </div>
                         </div>
@@ -106,16 +107,19 @@
                                                                          项目次数：${val.course2Num}
                                             
                                         </span>
+                                        
+                                     	
                                     </p>
-                                     <p class="more">
-                                      套餐价格：<span style="color: red;">${val.price} 
-                                    </p>
-                                    <p class="more">
-                                 	有效期(天)：<span style="color: red;">${val.day}
+                                     <p class="info" style="text-align:center;font-size: 17px;">
+                                      套餐价格：<span style="color: red;">${val.price} </span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      所需积分：<span style="color: red;">${val.letter}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                     有效期(天)：<span style="color: red;">${val.day}</span>
                                     </p>
                                     
-                                 <p class="">
-                        <form action="${basePath}empMsg/empMsgAdd" method="post">
+                                 <p style="text-align:center">
+                        <form action="${basePath}empMsg/empMsgAdd" method="post" style="text-align:center">
 							<input type="hidden" name="uname" value="${userMain.uname}">
 							<input type="hidden" name="mcontent" value="${val.gid}">
 							<input type="hidden" name="mprize" value="${val.price}">
@@ -130,34 +134,35 @@
 				                <button style="background-color:orange;border:6px solid orange;width:75px;" type="submit" >购买套餐</button>
 			                <!--   <a class="a2" href="#" style="background-color:orange;">购买套餐</a> -->
 				 			</c:if>
-						</form> 
-
                                     </p>
-                    <%--  <c:if test="${userMain.uname != null}">
+                        	</form> 
+					<c:if test="${userMain.uname != null}">
 						<c:if test="${user.letter >= val.letter}">
-						<form action="${basePath}empMsg/empMsgAdd" method="post">
+						<form action="${basePath}empMsg/empMsgAdd" method="post" style="text-align:center">
 							<input type="hidden" name="uname" value="${userMain.uname}">
 							<input type="hidden" name="mcontent" value="${val.gid}">
 							<input type="hidden" name="mprize" value="${val.price}">
 							<input type="hidden" name="uid" value="${userMain.uid}">
-							<input type="hidden" name="readflag" value="4">
+							<input type="hidden" name="readflag" value="5">
 							<input type="hidden" name="mcount" value="${val.letter}">
 							<!-- <a class="a2" href="#" style="background-color:orange;">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
-							<button style="background-color:orange;border:6px solid orange;" type="submit">积分兑换</button>&nbsp;&nbsp;&nbsp;&nbsp;
+							<button style="background-color:orange;border:6px solid orange;width:75px;" type="submit">积分兑换</button>
  						</form>
 						</c:if>
 					</c:if>
 					<c:if test="${userMain.uname != null}">
 						<c:if test="${user.letter < val.letter}">
-								<a  style="color: #000000;padding: 11px; font-size: 13px;background-color:orange;" href="#" style="background-color:orange;" onclick="getLetter()">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<!-- 							<button style="background-color:orange;border:6px solid orange;type="submit"><a href="#" onclick="getLetter()">积分兑换</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
- -->						</c:if>
+						<div style="text-align:center">
+<!-- 								<a  style="color: #000000;padding: 11px; font-size: 13px;background-color:orange;" href="#" style="background-color:orange; " onclick="getLetter()">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp;
+ --> 							<button style="background-color:orange;border:6px solid orange;width:75px;type="submit;"><a href="#" onclick="getLetter()">积分兑换</a></button>	
+						</div>
+						</c:if>
 					</c:if>
 					<c:if test="${userMain.uname == null}">
 							<a class="a2" href="#" style="background-color:orange;" onclick="display()">积分兑换</a>&nbsp;&nbsp;&nbsp;&nbsp;
 <!-- 							<button style="background-color:orange;border:1px solid orange;width:100px;"><a href="#" onclick="display()">积分兑换</a></button>&nbsp;&nbsp;&nbsp;&nbsp;
  -->               </c:if>
-                                    	 --%>	
+                            
                                 </li>
                             </c:forEach>
                           
@@ -187,10 +192,7 @@
 						
 						class=" pager-items">
 						
-						
-						
-							<ul 
-							
+						<ul 
 							style="text-align:center;"
 							
 							class="am-pagination">
@@ -283,16 +285,9 @@
 function display() {
 	alert("请先登录！");
 }
-
-</script>
- <script type="text/javascript">
-	parent.layer.confirm('请先登录！', {
-    btn: ['确定'], //按钮
-    shade: false //不显示遮罩
-    }, function display(){
-    parent.layer.msg('请先登录！', {icon: 1});
-    }
-	});
+function getLetter() {
+	alert("积分不足！");
+}
 </script> 
 <script type="text/javascript">
 				var currentPage=${currPage};
