@@ -53,6 +53,7 @@ public class CoachServiceImpl implements CoachService {
 		if (currPage > countPage) {
 			currPage = currPage - 1;
 		}
+		// 表记录的起始位置=(当前页数-1)*每页几条数据
 		int begin = (currPage - 1) * pageSize;
 		int end = begin + pageSize;
 		if (currPage == countPage) {
@@ -147,8 +148,8 @@ public class CoachServiceImpl implements CoachService {
 		int pageSize = 4;
 		int countPage = 0;
 		List<Coach> allCoach = coachDao.getAllCoach(IName);
-		int len = allCoach.size();
-		countPage = len / pageSize;
+		int len = allCoach.size(); // len = 8
+		countPage = len / pageSize;// countPage{2} = 8/4
 
 		if (len % pageSize > 0) {
 			countPage = countPage + 1;
@@ -157,6 +158,7 @@ public class CoachServiceImpl implements CoachService {
 			currPage = currPage - 1;
 		}
 		int begin = (currPage - 1) * pageSize;
+		System.err.println(begin + "!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		int end = begin + pageSize;
 		if (currPage == countPage) {
 			end = len;

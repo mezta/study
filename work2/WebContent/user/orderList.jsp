@@ -36,6 +36,7 @@
 								<th class="table-id"
 									style="width: 10%; text-align: center">商品编码</th>
 								<th class="" style="width: 10%; text-align: center">支付状态</th> 
+								
 								<th class="table-set" style="width: 10%; text-align: center">操作</th>
 							</tr>
 							<c:forEach items="${msgs}" var="val" varStatus="vs">
@@ -52,13 +53,22 @@
 											style="width: 10%; text-align: center">${val.mcount}</td>
 										<td class=""
 											style="width: 10%; text-align: center">${val.mcontent}</td>
+											 
 											 <td class=""
 											style="width: 12%; text-align: center">${val.mletter}</td>
 							 
 										<td style="width: 20%; text-align: center; ">
 											<div class="am-btn-toolbar"
 												style="text-align: center;">
-												
+												<c:if test="${val.mletter eq '未支付'}">
+					    
+					                  					<button
+															class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
+															<span class="am-icon-trash-o" style="text-align: center"></span>
+															<a href="${basePath}empMsg/selectBuymid?mid=${val.mid}" >去支付</a>
+														</button>
+					        		
+												</c:if>
 														<button
 															class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">
 															<span class="am-icon-trash-o" style="text-align: center"></span>

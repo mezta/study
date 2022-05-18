@@ -33,7 +33,7 @@ public interface MsgDao {
 
 	public List<Msg> getAllMsgs();
 
-	public Msg getAmsgNum(@Param("mimtle") String mimtle);
+	public Msg getAmsgNum(@Param("mtitle") String mtitle);
 
 	public List<Msg> getLimitMsg(@Param("pageNo") Integer pageNo, @Param("pageSize") Integer pageSize,
 			@Param("mreceiver") int mreceiver, @Param("lTitle") String lTitle);

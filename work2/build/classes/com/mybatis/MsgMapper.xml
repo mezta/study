@@ -169,8 +169,10 @@ WHERE
 	</select>
 	<!-- 获取 -->
 	 <select id="getAmsgNum" resultType="com.bean.Msg">
-		select * from msgtable where mtitle = '${mimtle}'
+		select * from msgtable where mtitle = '${mtitle}'
 	</select> 
+	
+	
 	
 <!-- <sql id="Base_Column_List" >
     id, order_num, order_time, users, recv_name, recv_address, recv_phone, recv_remark, 

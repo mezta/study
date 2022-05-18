@@ -22,6 +22,8 @@ public interface EmpMsgServices {
 
 	public String deleteMsgByID(int id, int uid);
 
-	public String updateMsg(String out, String mletter);
+	public String updateMsg(String out, String mletter, HttpSession session);
+
+	public String selectMsgByID(int mid, Model model);
 
 }

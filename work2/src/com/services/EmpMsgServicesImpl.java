@@ -64,7 +64,10 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 	}
 
 	@Override
-	public String updateMsg(String out, String mletter) {
+	public String updateMsg(String out, String mletter, HttpSession session) {
+		User u = (User) session.getAttribute("userMain");
+		Msg msg = msgDao.getAmsgNum(out);
+		userDao.updUserLetter(msg.getMprize(), u.getUid());
 		msgDao.updateMsg(mletter, out);
 		return "user/mains";
 	}
@@ -76,24 +79,20 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 		User u = (User) session.getAttribute("userMain");
 		if (u != null) {
 			if ("1".equals(msg.getReadflag())) {
-				userDao.updUserLetter(msg.getMprize(), u.getUid());
-				Grouptable grouptable = groupDao.getGroupsByID(msg.getMcontent());
 				DateUtil dateUtil = new DateUtil();
+				Grouptable grouptable = groupDao.getGroupsByID(msg.getMcontent());
 				msg.setMsender(dateUtil.findDate(grouptable.getDay()));
 				msg.setMtitle(new Date().getTime() + "");
 				msg.setMmletter("未支付");
 				msgDao.addMsg(msg);
 				return "user/buy";
 			} else if ("2".equals(msg.getReadflag())) {
-				userDao.updUserLetter(msg.getMprize(), u.getUid());
 				msg.setMtitle(new Date().getTime() + "");
 				msg.setMmletter("未支付");
 				msgDao.addMsg(msg);
 				return "user/buyshop";
 			} else if ("3".equals(msg.getReadflag())) {
-				userDao.updUserLetter(msg.getMprize(), u.getUid());
 				Course course = courseDao.getCourseByID(msg.getMcontent());
-				// System.err.println("course-----------------" + course);
 				DateUtil dateUtil = new DateUtil();
 				String dayString = course.getNum() + "";
 				msg.setMsender(dateUtil.findDate(dayString));
@@ -169,5 +168,13 @@ public class EmpMsgServicesImpl implements EmpMsgServices {
 	@Override
 	public Msg getAmsgNum(String mimtle) {
 		return msgDao.getAmsgNum(mimtle);
+	}
+
+	@Override
+	public String selectMsgByID(int mid, Model model) {
+		System.err.println(mid);
+		Msg msg = msgDao.getMsgById(mid);
+		model.addAttribute("msg", msg);
+		return "user/buy";
 	}
 }

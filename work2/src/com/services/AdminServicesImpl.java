@@ -62,7 +62,7 @@ public class AdminServicesImpl implements AdminServices {
 	}
 
 	/**
-	 * 通过email修改密码 如果修改成功直接跳转登陆页修改失败则不跳转
+	 * 
 	 */
 	@Override
 	public String updPwd(Admin admin, Model model, HttpSession session) {

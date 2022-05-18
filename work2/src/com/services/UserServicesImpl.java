@@ -98,7 +98,6 @@ public class UserServicesImpl implements UserServices {
 		allMsgs.addAll(allcourse);
 
 		allMsgs.addAll(allJ);
-		// System.err.println("asdsadasdadsad=" + allJMsg);
 		model.addAttribute("msgs", allMsgs);
 		int id = Integer.parseInt(uid);
 		User user = userDao.getUser(id);
@@ -123,6 +122,7 @@ public class UserServicesImpl implements UserServices {
 			// 将用户保存在session域中
 			session.setAttribute("userMain", u1);
 			session.setAttribute("userInfo", user);
+
 			List<Msg> Msgs = new ArrayList<Msg>();
 			DateUtil dateUtil = new DateUtil();
 			System.err.println(u1.getUid());
@@ -223,20 +223,6 @@ public class UserServicesImpl implements UserServices {
 		return "user/updateUserInfo";
 	}
 
-	/*
-	 * @Override public String setUserInfoMation(User user, Model model,
-	 * HttpServletRequest req, MultipartFile mypic,HttpSession session) {
-	 * PicUploadUtil picUtil=new PicUploadUtil(); // TODO Auto-generated method stub
-	 * try { if(!mypic.isEmpty()) { String urlPath=configServices.getPicUrl();
-	 * Map<String, String> resultMap=picUtil.uploadOneFile(urlPath,mypic,req);
-	 * String path=resultMap.get("path"); user.setUpic(path); } }catch(Exception ex)
-	 * { ex.printStackTrace(); model.addAttribute("mess", "图片上传错误"); return
-	 * "user/updateUserInfo"; } int t=0; t=userDao.setUser(user);
-	 * 
-	 * if (t>0) { session.setAttribute("user", user);
-	 * model.addAttribute("mess","个人信息修改成功！"); return "user/login"; }else{ return
-	 * "user/updateUserInfo"; } }
-	 */
 	@Override
 	public String setUserInfoMation(User user, Model model, HttpServletRequest req, HttpSession session) {
 		/*

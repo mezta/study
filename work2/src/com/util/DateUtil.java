@@ -72,7 +72,7 @@ public class DateUtil {
 
 	public static String Dates(String dEnd) {
 		/*
-		 * 计算两个时间间隔
+		 * 计算两个时间间隔到期天数
 		 */
 		try {
 			Date date = new Date();// 创建Date类型对象
@@ -112,7 +112,7 @@ public class DateUtil {
 
 	public static String Date(String dEnd) {
 		/*
-		 * 计算两个时间间隔
+		 * 计算两个时间间隔剩余天数
 		 */
 		try {
 			Date date = new Date();// 创建Date类型对象

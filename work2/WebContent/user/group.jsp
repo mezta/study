@@ -53,7 +53,7 @@
                             <ul class="met-page-ajax" data-scale=''>
                              <c:forEach items="${groupList}" var="val" varStatus="vs">
                                 <li>
-                                  <%--   <a class="img" href="newsshow.html" title="练瑜伽为什么要选择瑜伽馆，而非健身房？"  >
+                                  <%--   <a class="img" href="newsshow.html" title=""  >
                                        项目${vs.index+1}:
                                     </a> --%>
                                     <h4>
